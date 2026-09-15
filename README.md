@@ -24,7 +24,7 @@
 
 ## 🗓️ News
 
-- **2026.07.01:** Paper submitted to TPAMI.
+- **2026.07.01:** Paper submitted.
 - **2026.04.29:** InfraOcc project initiated.
 
 ## 📖 Abstract
