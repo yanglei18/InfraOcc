@@ -2,7 +2,7 @@
   <h1>InfraOcc: An Infrastructure Occupancy Benchmark with Static-to-Dynamic Reasoning</h1>
 
   <p>
-    Lei Yang, Xiaokai Bai, Boqi Li, Chunmian Lin, Li Wang, Ziying Song,<br>
+    Lei Yang*, Xiaokai Bai*, Boqi Li, Chunmian Lin, Li Wang, Ziying Song,<br>
     Jiahuan Zhang, Enhui Ma, Haibao Yu, Jiaqi Ma, and Kaicheng Yu
   </p>
 
@@ -24,7 +24,7 @@
 
 ## 🗓️ News
 
-- **2026.07.01:** Paper submitted.
+- **2026.07.01:** Paper submitted to TPAMI.
 - **2026.04.29:** InfraOcc project initiated.
 
 ## 📖 Abstract
