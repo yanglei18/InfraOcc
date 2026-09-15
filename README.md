@@ -175,12 +175,12 @@ InfraOcc data, generate the nuScenes-style metadata, and build multi-scale
 occupancy labels. The expected root directory is:
 
 ```text
-data/v2xreal_nuscenes/
+data/infraocc/
 ├── samples/
 ├── v1.0-trainval/
 ├── gts/
-├── v2xreal_infos_train.pkl
-└── v2xreal_infos_val.pkl
+├── infraocc_infos_train.pkl
+└── infraocc_infos_val.pkl
 ```
 
 Generate the static occupancy prior required by the released ProSD-Occ
@@ -188,7 +188,7 @@ configurations:
 
 ```bash
 python projects/InfraOcc/preprocess/static_occ_generation.py \
-  --pkl-path data/v2xreal_nuscenes/v2xreal_infos_train.pkl
+  --pkl-path data/infraocc_nuscenes/infraocc_infos_train.pkl
 ```
 
 ### 3. 🧩 Released Configurations and Checkpoints
