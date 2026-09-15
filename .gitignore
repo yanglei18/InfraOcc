@@ -77,23 +77,10 @@ work_dirs/*
 # Dataset / generated metadata (local only)
 *.pkl
 *.png
-# README artwork exported from the InfraOcc paper is part of the public docs.
-!docs/assets/infraocc/*.png
-# ICLR paper figures are source assets required to compile the manuscript.
-!docs/paper/ICLR2027/Fig4-comparison.png
-!docs/paper/ICLR2027/Fig5-backwarp.png
-!docs/paper/ICLR2027/Fig6-ptrcontrol.png
-!docs/paper/ICLR2027/supplementary/Fig1-sensor-setup.png
-!docs/paper/ICLR2027/supplementary/Fig2-comparison.png
-!docs/paper/ICLR2027/supplementary/Fig3-occ3d-comparison.png
-!docs/paper/ICLR2027/supplementary/Fig4-recursive.png
-!docs/paper/ICLR2027/supplementary/Fig5-ptrnative.png
-*.mp4
 
 mmdet3d/.mim/tools
 mmcv_src/
-# External reference repositories kept locally but not tracked here
-docs/assets/code
+build/
 
 # Local large-artifact links
 work_dirs/
@@ -102,3 +89,10 @@ data/
 docs/assets/paper/
 docs/guidance
 docs/paper
+
+tools/audits/
+tools/efficiency/
+tools/evaluation/
+tools/infraocc/
+tools/occflow_tools/
+tools/visualizer/
