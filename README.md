@@ -7,7 +7,7 @@
   </p>
 
   <p>
-    <a href="https://github.com/shawnnnkb/Occ-V2X-Real">Code</a> |
+    <a href="https://github.com/yanglei18/InfraOcc">Code</a> |
     <a href="docs/guidance/Install_cu128.md">Installation</a> |
     <a href="docs/guidance/dataset.md">Dataset Preparation</a> |
     <a href="projects/InfraOcc/configs/main_table/README.md">Training & Evaluation</a>
@@ -68,8 +68,7 @@ into a unified semantic occupancy field.
 
 ## 🏙️ InfraOcc Benchmark
 
-InfraOcc is built from synchronized roadside streams in
-[V2X-Real](https://github.com/ucla-mobility/V2X-Real). The sensor platform contains
+InfraOcc is built from synchronized roadside streams. The sensor platform contains
 four calibrated roadside cameras and two infrastructure-side LiDARs. InfraOcc
 contains 290 temporally continuous sequences, divided into 215 training
 sequences and 75 evaluation sequences.
@@ -172,7 +171,7 @@ pip install -v -e . --no-build-isolation
 ### 2. 🗂️ Dataset Preparation
 
 Follow the [dataset preparation guide](docs/guidance/dataset.md) to organize the
-V2X-Real data, generate the nuScenes-style metadata, and build multi-scale
+InfraOcc data, generate the nuScenes-style metadata, and build multi-scale
 occupancy labels. The expected root directory is:
 
 ```text
@@ -244,7 +243,6 @@ If you find InfraOcc or ProSD-Occ useful in your research, please cite:
 
 This project builds upon the following datasets and open-source projects:
 
-- [V2X-Real](https://github.com/ucla-mobility/V2X-Real)
 - [MMDetection3D](https://github.com/open-mmlab/mmdetection3d)
 - [BEVFormer](https://github.com/fundamentalvision/BEVFormer)
 - [OpenOccupancy](https://github.com/JeffWang987/OpenOccupancy)
