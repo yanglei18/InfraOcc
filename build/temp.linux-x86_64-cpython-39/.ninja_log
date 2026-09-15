@@ -1,0 +1,5 @@
+# ninja log v5
+1	562	1774091657364423227	/home/bxk/CODE-pro6000-PhD-3/Occ-V2X-Real/build/temp.linux-x86_64-cpython-39/mmdet3d/ops/bev_pool_v2/src/bev_pool_cuda.o	2476533e0d4c8f83
+0	13427	1774091670223460845	/home/bxk/CODE-pro6000-PhD-3/Occ-V2X-Real/build/temp.linux-x86_64-cpython-39/mmdet3d/ops/bev_pool_v2/src/bev_pool.o	e0669d7b8c386482
+8	561	1780223623859927733	/home/bxk/CODE-pro6000-PhD-3/Occ-V2X-Real/build/temp.linux-x86_64-cpython-39/mmdet3d/ops/bev_pool_v2/src/bev_pool_cuda.o	f43aee89acd6d83
+8	13548	1780223636841984159	/home/bxk/CODE-pro6000-PhD-3/Occ-V2X-Real/build/temp.linux-x86_64-cpython-39/mmdet3d/ops/bev_pool_v2/src/bev_pool.o	bb67072078f3b32e

@@ -1,0 +1,27 @@
+# Story Stage Artifact: RoadOcc (ICLR 2027)
+
+## Summary
+
+RoadOcc targets camera-only roadside 3D semantic occupancy by treating temporal memory as voxel-level routing among Persist, Transport, and Refresh sources. DCA selects motion-sensitive voxels, VVE estimates velocity-addressed historical support, and VDSF fuses rigid history, transported history, or current evidence using supervised P/T/R targets. The paper reports improved InfraOcc occupancy, dynamic mIoU, velocity error, and support recall, with controlled ablations linking gains to address correction and source admissibility decisions.
+
+## Claimed Versus Demonstrated Contributions
+
+| Claimed contribution | Demonstrated by OCR evidence | Caveat |
+|---|---|---|
+| Roadside temporal occupancy can be formulated as supervised Persist/Transport/Refresh routing. | Method defines P/T/R candidates and target rule in Sec. 3.1, Sec. 3.5, Eq. 1, Eq. 7, and native target Eq. 20. | Target is semantic support, not instance correspondence; nearby same-class objects may share support (App. F). |
+| DCA-VVE-VDSF forms an end-to-end staged mechanism. | DCA candidate map and attention in Eq. 2-3; VVE correspondence and recursive velocity in Eq. 4-5; VDSF sparse routing and fusion in Eq. 6-9. | Some hyperparameters and routing details are in supplement, not fully justified theoretically. |
+| Routing improves InfraOcc performance and dynamic recovery. | RoadOcc reports 65.29 mIoU and 32.37 dynamic mIoU in Table 2; Table 3 reports lower Direct MAVE and higher DSR than STCOcc. | Evidence is on one dense roadside benchmark; authors argue no comparable second benchmark exists (App. A.1). |
+| P/T/R generalizes beyond RoadOcc. | Adding VDSF P/T/R to CRT-Fusion and STCOcc improves Dyn., Direct MAVE, and DSR in Table 3. | Transfer is controlled but still within the same InfraOcc protocol. |
+| Address correction and source selection are separable benefits. | Component and controlled studies in Tables 4-6 and A6 isolate VVE read, P/T/R, and source-consistent addresses. | Route diagnostics are GT-conditioned and should not replace end-to-end metrics, as stated near Fig. 7 and Table A4. |
+
+## Detailed Mechanism Trace
+
+RoadOcc takes four synchronized roadside camera images \(\mathcal{I}_t=\{I_t^n\}_{n=1}^4\), calibrated into a fixed roadside frame, and predicts semantic occupancy over \(\Omega\) plus planar voxel velocity \(v_t:\Omega\rightarrow\mathbb{R}^2\) (Sec. 3.1). Its main assumption is that static structure persists in this fixed frame, while dynamic-class voxels may need memory read from a displaced historical address. Rigid alignment handles sensor geometry but not object motion, so Eq. 1 defines the Transport address \(\mathbf{x}-\Delta t v_t(\mathbf{x})\); Sec. 3.1 stresses that this address alone does not prove historical support is valid.
+
+The runtime path is coarse-to-fine over \(1/8,1/4,1/2\) voxel stages, ending in full-resolution occupancy and velocity (Sec. 3.2, Fig. 5). DCA first decides where extra current-image evidence is worth spending. It compares provisional current and static distributions over static/free classes and combines that discrepancy with dynamic probability into a normalized candidate map (Eq. 2; App. C.1 Eq. 16-18). That map gates a second projected deformable cross-attention update using retained camera-visible anchors and a depth-consistency factor (Eq. 3; App. C.1 Eq. 19). At inference the anchor threshold is fixed at 0.5; stochastic thresholding is only a training exposure mechanism (Sec. 3.3).
+
+VVE then estimates where history should be queried. It projects DCA-refined dynamic support into BEV, builds a \(5\times5\) local current-history correspondence volume (Eq. 4), and recursively refines velocity from coarse to fine with current-only and history-based residuals (Eq. 5). The explicit correlation window spans finite scale-dependent physical ranges (Table A2), but the paper says the final residual is not hard-clipped (App. C.1).
+
+VDSF chooses which selected voxels receive full temporal processing. It combines DCA score and nonempty support, takes Top-K tokens (Eq. 6), gathers rigid Persist history, velocity-addressed Transport history, and current Refresh evidence, then predicts a soft three-way route distribution (Eq. 8). P/T/R targets are built from current labels, nearest historical semantic occupancy, and motion targets: stationary same-class support maps to Persist, moving same-class support at the backtraced address maps to Transport, otherwise Refresh (Eq. 7; App. C.1 Eq. 20). For example, a current car voxel moving 4 m/s over \(\Delta t=0.5\) s has a 2 m backtrace, i.e., 5 cells on the native 0.4 m grid; if the previous frame has same-class support within the \(3\times3\) XY neighborhood at that height, its target is Transport, otherwise Refresh.
+
+Training jointly optimizes depth, semantic occupancy, motion, and route losses (Eq. 10; App. C). VVE targets come from boxes and tracklets, with future occupancy used only offline for target construction, not as model input (App. A.2). Evaluated parts include occupancy, dynamic/next-frame IoU, Direct MAVE, DSR, component ablations, route diagnostics, and token sensitivity (Tables 2-6, A1, A4-A6). Caveats: route supervision is semantic rather than instance-level, evaluation is confined to InfraOcc, and runtime latency is marked TBD in Table A3 but is excluded from this scoring exercise by instruction.

@@ -1,0 +1,11 @@
+\begin{figure*}[!t]
+  \centering
+  \includegraphics[width=\textwidth]{figures/fig03-dataset-construction.png}
+\caption{\textbf{Overview of the dataset construction pipeline.} We build dense semantic occupancy annotations from two complementary
+semantic point-cloud sources: Semantic Dynamic Object Point Clouds constructed from infrastructure-side LiDAR sequences and Semantic Static Background Point
+Clouds constructed from vehicle-side LiDAR sequences. The dynamic branch uses manually annotated object tracklets and Tracklet-based Object Alignment to
+densify dynamic objects, while the static branch uses Ego-pose Alignment, dynamic-object Removal, and Semantic Annotation to construct persistent
+infrastructure layout. Static-dynamic recomposition integrates the two semantic point-cloud sources in the fixed roadside coordinate system, and Occupancy
+Labeling converts the recomposed scene into voxel-level semantic occupancy labels.}
+\label{fig:dataset_construction}
+\end{figure*}

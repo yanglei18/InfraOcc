@@ -1,0 +1,23 @@
+\begin{table}[!tbp]
+\caption{\textbf{Core ablation of progressive static-to-dynamic reasoning.} The upper block compares prediction paradigms; the lower block isolates suppression and raw-feature bypass. The parallel S2D control uses the same no-static-suppression setting as the lower-block control.}
+\label{tab:core_mechanism}
+\centering
+\scriptsize
+\setlength{\tabcolsep}{4.2pt}
+\renewcommand{\arraystretch}{1.08}
+\begin{tabularx}{\columnwidth}{@{}>{\raggedright\arraybackslash}Xcccc@{}}
+\toprule
+Setting & gIoU$\uparrow$ & $\mathrm{mIoU}_{\mathrm{all}}\uparrow$ & $\mathrm{mIoU}_{\mathrm{dyn}}\uparrow$ & $\mathrm{mIoU}_{\mathrm{sta}}\uparrow$ \\
+\midrule
+\multicolumn{5}{l}{\textbf{\textit{Necessity of Progressive S2D Reasoning}}} \\
+Plain Occupancy Prediction & 78.54 & 50.71 & 23.48 & 71.14 \\
+Parallel S2D Fusion (no supp.) & 79.77 & 53.59 & 24.43 & 75.46 \\
+Progressive S2D Reasoning & 89.08 & 60.08 & 28.97 & 83.42 \\
+\midrule
+\multicolumn{5}{l}{\textbf{\textit{Design of Progressive S2D Reasoning}}} \\
+No static suppression & 79.77 & 53.59 & 24.43 & 75.46 \\
+Suppression only & 88.35 & 59.77 & 28.81 & 82.99 \\
+Suppression + raw bypass & 89.08 & 60.08 & 28.97 & 83.42 \\
+\bottomrule
+\end{tabularx}
+\end{table}

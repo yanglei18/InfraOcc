@@ -1,0 +1,21 @@
+\begin{table}[!tbp]
+\caption{\textbf{Static guidance quality.} Only the guidance signal for residual modulation is changed.
+None uses the shared no-static-suppression control, Noisy uses a perturbed static-confidence map,
+Predicted uses learned static confidence from static branch, and Oracle
+uses ground-truth static occupancy as guidance.}
+\label{tab:static_guidance_quality}
+\centering
+\scriptsize
+\setlength{\tabcolsep}{2.8pt}
+\renewcommand{\arraystretch}{1.08}
+\begin{tabular*}{\columnwidth}{@{\extracolsep{\fill}}lcccc@{}}
+\toprule
+Guidance & gIoU$\uparrow$ & $\mathrm{mIoU}_{\mathrm{all}}\uparrow$ & $\mathrm{mIoU}_{\mathrm{dyn}}\uparrow$ & $\mathrm{mIoU}_{\mathrm{sta}}\uparrow$ \\
+\midrule
+None & 79.77 & 53.59 & 24.43 & 75.46 \\
+Noisy & 86.70 & 56.51 & 22.60 & 81.95 \\
+Predicted & 89.08 & 60.08 & 28.97 & 83.42 \\
+Oracle & 89.22 & 60.31 & 29.18 & 83.65 \\
+\bottomrule
+\end{tabular*}
+\end{table}

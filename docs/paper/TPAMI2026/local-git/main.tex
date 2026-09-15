@@ -1,0 +1,204 @@
+\documentclass[10pt,journal,compsoc]{IEEEtran}
+\usepackage[nocompress]{cite}
+\usepackage[pdftex]{graphicx}
+\graphicspath{{figures/}}
+\DeclareGraphicsExtensions{.pdf,.jpeg,.png}
+\usepackage{amsmath,bm}
+\interdisplaylinepenalty=2500 % restore page breaks within multiline equations
+\usepackage{algorithm}
+\usepackage{algorithmic}
+\usepackage{array}
+\usepackage{url}
+\usepackage[x11names]{xcolor}
+\usepackage{tabulary,xfrac,enumitem}
+\usepackage{booktabs}       % professional-quality tables
+\usepackage{amsfonts}       % blackboard math symbols
+\usepackage{nicefrac}       % compact symbols for 1/2, etc.
+\usepackage{microtype}      % microtypography
+\usepackage{amssymb}
+\usepackage{amsmath}
+\usepackage{caption, subcaption}
+\usepackage{tabularx}
+\usepackage{multicol}
+\usepackage{multirow} 
+\usepackage{textcomp}
+\usepackage{makecell}
+\usepackage{colortbl}
+\usepackage{pifont}% http://ctan.org/pkg/pifont
+\usepackage{xspace}
+\definecolor{infraLinkColor}{RGB}{200,0,0}
+\definecolor{infraCiteColor}{RGB}{34,200,34}
+\definecolor{infraUrlColor}{RGB}{0,90,140}
+\usepackage[
+  pagebackref=true,
+  breaklinks=true,
+  colorlinks=true,
+  linkcolor=infraLinkColor,
+  citecolor=infraCiteColor,
+  urlcolor=infraUrlColor,
+  bookmarks=false
+]{hyperref}
+
+\usepackage{xcolor}
+\usepackage{color, colortbl}
+\usepackage{verbatim}
+\usepackage{marvosym}
+\usepackage{ragged2e}
+
+% Prefer slightly wider inter-word adjustment over visually distracting
+% hyphenated line breaks in the narrow IEEE two-column layout.
+\hyphenpenalty=8000
+\exhyphenpenalty=8000
+\emergencystretch=1em
+
+% Support for easy cross-referencing
+\usepackage[capitalize]{cleveref}
+\crefname{section}{Sec.}{Secs.}
+\Crefname{section}{Section}{Sections}
+
+
+\Crefname{table}{Table}{Tables}
+\crefname{table}{Tab.}{Tabs.}
+\Crefname{figure}{Fig.}{Figs.}
+\crefname{figure}{Fig.}{Figs.}
+
+\newcommand{\name}{InfraOcc}
+\newcommand{\nameplus}{\mbox{ProSD-Occ}}
+\newcommand{\mypara}[1]{\vspace{1mm}\noindent\textbf{#1}}
+
+\newcommand{\extend}[1]{#1}
+\newcommand{\EX}[1]{#1}
+\newcommand{\ky}[1]{#1}
+\newcommand{\KY}[1]{[#1]}
+\newcommand{\RE}[1]{#1}
+\newcommand{\BEST}[1]{\textbf{#1}}
+
+
+\newcommand{\pub}[1]{{\tiny{[{#1}]}}}
+\newcommand{\cmark}{\ding{51}\xspace}
+\newcommand{\cmarkg}{\ding{51}\xspace}
+\newcommand{\xmark}{\ding{55}\xspace}
+\newcommand{\xmarkg}{\ding{55}\xspace}
+\newcommand{\na}{-}
+\newcommand{\slice}[1]{\scalebox{0.8}{$\bm[{#1}\bm]$}}
+\def \pzo {\phantom{0}}
+
+\setcounter{topnumber}{5}
+\setcounter{bottomnumber}{3}
+\setcounter{totalnumber}{8}
+\setcounter{dbltopnumber}{2}
+\renewcommand{\topfraction}{0.95}
+\renewcommand{\bottomfraction}{0.85}
+\renewcommand{\textfraction}{0.05}
+\renewcommand{\floatpagefraction}{0.85}
+\renewcommand{\dbltopfraction}{0.95}
+\renewcommand{\dblfloatpagefraction}{0.85}
+
+\makeatletter
+\newcommand{\thickhline}{%
+    \noalign {\ifnum 0=`}\fi \hrule height 0.5pt
+    \futurelet \reserved@a \@xhline
+}
+% IEEEtran compsoc journals render section titles in small caps by default.
+% Keep section titles in Title Case to match subsection headings.
+\def\section{\@startsection{section}{1}{\z@}{-3.5ex plus -2ex minus -1.5ex}%
+{0.7ex plus 1ex minus 0ex}{\normalfont\sublargesize\sffamily\bfseries}}%
+\makeatother
+
+
+\begin{document}
+% \title{BEVHeight++: A Robust Framework for Vision-based Roadside 3D Object Detection}
+\title{InfraOcc: An Infrastructure Occupancy Benchmark with Static-to-Dynamic Reasoning}
+
+% \title{BEVHeight++: Toward Robust Vision-based Roadside and On-vehicle 3D Object Detection}
+
+% author names and IEEE memberships
+\author{Lei~Yang\textsuperscript{$\dagger$}, Xiaokai~Bai\textsuperscript{$\dagger$}
+\IEEEcompsocitemizethanks{ 
+\IEEEcompsocthanksitem \textsuperscript{$\dagger$} equal contribution. \textsuperscript{*} corresponding author.
+\IEEEcompsocthanksitem Lei Yang is with the School of Mechanical and
+Aerospace Engineering, Nanyang Technological University, Singapore. Email: lei.yang@ntu.edu.sg.
+\IEEEcompsocthanksitem Xiaokai Bai is with the College of Information Science
+and Electronic Engineering, Zhejiang University, Hangzhou 310027, China.
+Email: shawnnnkb@zju.edu.cn.}
+}
+
+\markboth{IEEE Transactions on Pattern Analysis and Machine Intelligence}%
+{InfraOcc: Infrastructure-Centric 3D Occupancy Prediction}
+
+\IEEEtitleabstractindextext{%
+\begin{abstract}
+\justifying
+Fixed-viewpoint infrastructure sensors repeatedly observe the same traffic
+space, making roadside 3D occupancy structurally different from ego-vehicle
+perception: a near-persistent static scaffold is overlaid with sparse,
+short-lived dynamic events. Existing occupancy benchmarks and methods, however,
+are built around moving ego vehicles and neither measure nor exploit this
+structure, instead treating occupancy as flat one-shot voxel classification. We
+address this gap from both data and model perspectives. We build
+\textbf{InfraOcc}, to our knowledge, the first real-world infrastructure-side semantic occupancy
+benchmark, with dense voxel annotations for 290 multi-modal sequences in a fixed
+roadside frame, a static-dynamic decoupled annotation pipeline, unified
+camera-only/LiDAR-only/multi-modal evaluation, and diagnostics for static and
+dynamic occupancy. InfraOcc shows that static infrastructure fills 97.3\% of
+occupied voxels and persists across frames, whereas dynamic participants have a
+median temporal occupancy of only 1.4\% per location, revealing a structural
+static-dynamic asymmetry beyond semantic long-tailedness. We further propose
+\nameplus{}, which reformulates occupancy as progressive static-to-dynamic
+evidence reasoning: it explains persistent layout, exposes residual dynamic
+evidence under static-confidence guidance, and recomposes static, dynamic, and
+free-space evidence into a unified field. \nameplus{} consistently surpasses
+representative baselines across all three tracks, e.g., +5.49 camera-only
+dynamic mIoU and 65.87 multi-modal overall mIoU, establishing fixed-viewpoint
+roadside occupancy as a distinct problem with its own reasoning paradigm.
+\end{abstract}
+
+% Note that keywords are not normally used for peer review papers.
+\begin{IEEEkeywords}
+occupancy prediction, benchmark, infrastructure perception, progressive static-to-dynamic reasoning.
+\end{IEEEkeywords}
+}
+
+% make the title area
+\maketitle
+
+\IEEEdisplaynontitleabstractindextext
+
+\IEEEpeerreviewmaketitle
+
+
+\IEEEraisesectionheading{\section{Introduction}\label{sec:introduction}}
+\input{latex/1-intro}
+
+\section{Related Work}\label{sec:related_work}
+\input{latex/2-relatedworks}
+
+\section{InfraOcc Benchmark}
+\label{sec:infraocc_benchmark}
+\input{latex/3-benchmark}
+
+\input{latex/table_macros}
+
+\section{ProSD-Occ Framework}
+\label{sec:method}
+\input{latex/3-method}
+
+\section{Experiments}
+\label{sec:exps}
+\input{latex/4-exps}
+
+\section{Conclusion} 
+\label{sec:conclusion}
+\input{latex/5-conclusion}
+
+
+\ifCLASSOPTIONcaptionsoff
+  \newpage
+\fi
+
+% \clearpage
+\bibliographystyle{IEEEtran}
+\bibliography{IEEEabrv, egbib}
+
+% that's all folks
+\end{document}

@@ -1,0 +1,39 @@
+\newcommand{\bestnum}[1]{\textbf{#1}}
+\newcommand{\secondnum}[1]{\underline{#1}}
+\newcommand{\thirdnum}[1]{\emph{#1}}
+\newcolumntype{C}[1]{>{\centering\arraybackslash}p{#1}}
+\newcommand{\bestcell}[1]{\textbf{#1}}
+\newcommand{\secondcell}[1]{\underline{#1}}
+\newcommand{\thirdcell}[1]{\emph{#1}}
+\newcommand{\rotcls}[1]{\rotatebox{90}{\scriptsize #1}}
+
+\definecolor{occBike}{RGB}{244,160,170}
+\definecolor{occBus}{RGB}{241,120,52}
+\definecolor{occCar}{RGB}{31,144,224}
+\definecolor{occMotor}{RGB}{188,165,0}
+\definecolor{occPed}{RGB}{226,35,35}
+\definecolor{occTruck}{RGB}{153,78,24}
+\definecolor{occOther}{RGB}{125,125,125}
+\definecolor{occBarrier}{RGB}{96,62,45}
+\definecolor{occCone}{RGB}{245,213,93}
+\definecolor{occDrive}{RGB}{230,30,225}
+\definecolor{occSide}{RGB}{85,21,91}
+\definecolor{occTerrain}{RGB}{125,224,80}
+\definecolor{occManmade}{RGB}{196,196,196}
+\definecolor{occVegetation}{RGB}{0,185,0}
+\definecolor{occFree}{RGB}{0,0,0}
+
+\newcommand{\classswatch}[1]{\textcolor{#1}{\rule{0.70em}{0.70em}}}
+\newcommand{\occclassname}[1]{\rotatebox{90}{\scriptsize #1}}
+\newcommand{\occclasshead}[2]{%
+  \begin{tabular}[b]{@{}c@{}}%
+    \makebox[0.85em][c]{\rule{0pt}{6.4em}\rotatebox{90}{\scriptsize #2}}\\[-0.25ex]%
+    \classswatch{#1}%
+  \end{tabular}%
+}
+\newcommand{\modalityrow}[2]{%
+  \rowcolor{gray!8}\multicolumn{#1}{@{}l}{\textbf{#2}}\\%
+}
+\newcommand{\pendingmethodrow}[2]{%
+  #1~\cite{#2} & \multicolumn{19}{c}{\na} \\%
+}

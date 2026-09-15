@@ -1,0 +1,1202 @@
+{
+  "artifact_root": "/home/bxk/CODE-A6000-PhD-3/Occ-V2X-Real/docs/paper/ICLR2027/review_artifacts/roadocc_external_skill",
+  "by_category": [
+    {
+      "category": "ocr",
+      "count": 1,
+      "duration_ms": 687251,
+      "failed": 0
+    },
+    {
+      "category": "preflight",
+      "count": 6,
+      "duration_ms": 17023,
+      "failed": 3
+    },
+    {
+      "category": "preprocessing",
+      "count": 1,
+      "duration_ms": 130,
+      "failed": 0
+    }
+  ],
+  "entries": [
+    {
+      "_source_log": "timing.jsonl",
+      "category": "preflight",
+      "duration_ms": 2,
+      "ended_at": "2026-08-19T11:31:06.158000Z",
+      "ended_epoch_ms": 1787139066158,
+      "kind": "step",
+      "metadata": {
+        "command": "/home/bxk/.codex/skills/research-paper-review-full/scripts/check_olmocr_required.sh",
+        "error": "[Errno 13] Permission denied: '/home/bxk/.codex/skills/research-paper-review-full/scripts/check_olmocr_required.sh'"
+      },
+      "schema": "paper-review-timing/v1",
+      "started_at": "2026-08-19T11:31:06.156000Z",
+      "started_epoch_ms": 1787139066156,
+      "status": "failed",
+      "step": "preflight.olmocr"
+    },
+    {
+      "_source_log": "timing.jsonl",
+      "category": "preflight",
+      "duration_ms": 2,
+      "ended_at": "2026-08-19T11:31:06.249000Z",
+      "ended_epoch_ms": 1787139066249,
+      "kind": "step",
+      "metadata": {
+        "command": "/home/bxk/.codex/skills/research-paper-review-full/scripts/check_html_explainer_required.sh",
+        "error": "[Errno 13] Permission denied: '/home/bxk/.codex/skills/research-paper-review-full/scripts/check_html_explainer_required.sh'"
+      },
+      "schema": "paper-review-timing/v1",
+      "started_at": "2026-08-19T11:31:06.247000Z",
+      "started_epoch_ms": 1787139066247,
+      "status": "failed",
+      "step": "preflight.html_explainer"
+    },
+    {
+      "_source_log": "timing.jsonl",
+      "category": "preflight",
+      "duration_ms": 8,
+      "ended_at": "2026-08-19T11:31:23.920000Z",
+      "ended_epoch_ms": 1787139083920,
+      "kind": "step",
+      "metadata": {
+        "command": "bash /home/bxk/.codex/skills/research-paper-review-full/scripts/check_olmocr_required.sh",
+        "returncode": 1
+      },
+      "schema": "paper-review-timing/v1",
+      "started_at": "2026-08-19T11:31:23.912000Z",
+      "started_epoch_ms": 1787139083912,
+      "status": "failed",
+      "step": "preflight.olmocr"
+    },
+    {
+      "_source_log": "timing.jsonl",
+      "category": "preflight",
+      "duration_ms": 386,
+      "ended_at": "2026-08-19T11:31:24.413000Z",
+      "ended_epoch_ms": 1787139084413,
+      "kind": "step",
+      "metadata": {
+        "command": "bash /home/bxk/.codex/skills/research-paper-review-full/scripts/check_html_explainer_required.sh"
+      },
+      "schema": "paper-review-timing/v1",
+      "started_at": "2026-08-19T11:31:24.027000Z",
+      "started_epoch_ms": 1787139084027,
+      "status": "completed",
+      "step": "preflight.html_explainer"
+    },
+    {
+      "_source_log": "timing.jsonl",
+      "category": "preflight",
+      "duration_ms": 16139,
+      "ended_at": "2026-08-19T11:35:35.985000Z",
+      "ended_epoch_ms": 1787139335985,
+      "kind": "step",
+      "metadata": {
+        "command": "bash /home/bxk/.codex/skills/research-paper-review-full/scripts/check_olmocr_required.sh"
+      },
+      "schema": "paper-review-timing/v1",
+      "started_at": "2026-08-19T11:35:19.846000Z",
+      "started_epoch_ms": 1787139319846,
+      "status": "completed",
+      "step": "preflight.olmocr"
+    },
+    {
+      "_source_log": "timing.jsonl",
+      "category": "preflight",
+      "duration_ms": 486,
+      "ended_at": "2026-08-19T11:35:36.572000Z",
+      "ended_epoch_ms": 1787139336572,
+      "kind": "step",
+      "metadata": {
+        "command": "bash /home/bxk/.codex/skills/research-paper-review-full/scripts/check_html_explainer_required.sh"
+      },
+      "schema": "paper-review-timing/v1",
+      "started_at": "2026-08-19T11:35:36.086000Z",
+      "started_epoch_ms": 1787139336086,
+      "status": "completed",
+      "step": "preflight.html_explainer"
+    },
+    {
+      "_source_log": "timing.jsonl",
+      "category": "preprocessing",
+      "duration_ms": 130,
+      "ended_at": "2026-08-19T11:35:54.134000Z",
+      "ended_epoch_ms": 1787139354134,
+      "kind": "step",
+      "metadata": {
+        "command": "python /home/bxk/.codex/skills/research-paper-review-full/scripts/scope_paper_pdf.py --pdf docs/paper/ICLR2027/manuscript.pdf --output docs/paper/ICLR2027/review_artifacts/roadocc_external_skill/source/roadocc_external_skill_scoped_full.pdf --metadata docs/paper/ICLR2027/review_artifacts/roadocc_external_skill/source/roadocc_external_skill_scope.json --force-full"
+      },
+      "schema": "paper-review-timing/v1",
+      "started_at": "2026-08-19T11:35:54.004000Z",
+      "started_epoch_ms": 1787139354004,
+      "status": "completed",
+      "step": "scope.pdf"
+    },
+    {
+      "_source_log": "timing.jsonl",
+      "category": "ocr",
+      "duration_ms": 687251,
+      "ended_at": "2026-08-19T11:50:02.057000Z",
+      "ended_epoch_ms": 1787140202057,
+      "kind": "step",
+      "metadata": {
+        "backend": "codex-exec-shim",
+        "model": "gpt-5.5",
+        "thinking_level": "low",
+        "workspace": "docs/paper/ICLR2027/review_artifacts/roadocc_external_skill/olmocr-workspace"
+      },
+      "schema": "paper-review-timing/v1",
+      "started_at": "2026-08-19T11:38:34.806000Z",
+      "started_epoch_ms": 1787139514806,
+      "status": "completed",
+      "step": "olmocr.total"
+    },
+    {
+      "_source_log": "olmocr-pages.jsonl",
+      "category": "ocr_page",
+      "duration_ms": 20709,
+      "ended_at": "2026-08-19T11:39:00Z",
+      "ended_epoch_ms": 1787139540356,
+      "kind": "olmocr_page",
+      "metadata": {
+        "backend": "codex-exec-shim",
+        "codex_model": "gpt-5.5",
+        "image_count": 1,
+        "model": "gpt-5.5",
+        "output_chars": 1590,
+        "page_number_guess": null,
+        "page_request_index": 1,
+        "thinking_level": "low"
+      },
+      "schema": "paper-review-timing/v1",
+      "started_at": "2026-08-19T11:38:39Z",
+      "started_epoch_ms": 1787139519646,
+      "status": "completed",
+      "step": "olmocr.page"
+    },
+    {
+      "_source_log": "olmocr-pages.jsonl",
+      "category": "ocr_page",
+      "duration_ms": 30189,
+      "ended_at": "2026-08-19T11:39:30Z",
+      "ended_epoch_ms": 1787139570553,
+      "kind": "olmocr_page",
+      "metadata": {
+        "backend": "codex-exec-shim",
+        "codex_model": "gpt-5.5",
+        "image_count": 1,
+        "model": "gpt-5.5",
+        "output_chars": 3793,
+        "page_number_guess": null,
+        "page_request_index": 2,
+        "thinking_level": "low"
+      },
+      "schema": "paper-review-timing/v1",
+      "started_at": "2026-08-19T11:39:00Z",
+      "started_epoch_ms": 1787139540363,
+      "status": "completed",
+      "step": "olmocr.page"
+    },
+    {
+      "_source_log": "olmocr-pages.jsonl",
+      "category": "ocr_page",
+      "duration_ms": 35310,
+      "ended_at": "2026-08-19T11:40:05Z",
+      "ended_epoch_ms": 1787139605869,
+      "kind": "olmocr_page",
+      "metadata": {
+        "backend": "codex-exec-shim",
+        "codex_model": "gpt-5.5",
+        "image_count": 1,
+        "model": "gpt-5.5",
+        "output_chars": 4564,
+        "page_number_guess": null,
+        "page_request_index": 3,
+        "thinking_level": "low"
+      },
+      "schema": "paper-review-timing/v1",
+      "started_at": "2026-08-19T11:39:30Z",
+      "started_epoch_ms": 1787139570559,
+      "status": "completed",
+      "step": "olmocr.page"
+    },
+    {
+      "_source_log": "olmocr-pages.jsonl",
+      "category": "ocr_page",
+      "duration_ms": 38753,
+      "ended_at": "2026-08-19T11:40:44Z",
+      "ended_epoch_ms": 1787139644629,
+      "kind": "olmocr_page",
+      "metadata": {
+        "backend": "codex-exec-shim",
+        "codex_model": "gpt-5.5",
+        "image_count": 1,
+        "model": "gpt-5.5",
+        "output_chars": 4841,
+        "page_number_guess": null,
+        "page_request_index": 4,
+        "thinking_level": "low"
+      },
+      "schema": "paper-review-timing/v1",
+      "started_at": "2026-08-19T11:40:05Z",
+      "started_epoch_ms": 1787139605876,
+      "status": "completed",
+      "step": "olmocr.page"
+    },
+    {
+      "_source_log": "olmocr-pages.jsonl",
+      "category": "ocr_page",
+      "duration_ms": 37607,
+      "ended_at": "2026-08-19T11:41:22Z",
+      "ended_epoch_ms": 1787139682243,
+      "kind": "olmocr_page",
+      "metadata": {
+        "backend": "codex-exec-shim",
+        "codex_model": "gpt-5.5",
+        "image_count": 1,
+        "model": "gpt-5.5",
+        "output_chars": 4817,
+        "page_number_guess": null,
+        "page_request_index": 5,
+        "thinking_level": "low"
+      },
+      "schema": "paper-review-timing/v1",
+      "started_at": "2026-08-19T11:40:44Z",
+      "started_epoch_ms": 1787139644636,
+      "status": "completed",
+      "step": "olmocr.page"
+    },
+    {
+      "_source_log": "olmocr-pages.jsonl",
+      "category": "ocr_page",
+      "duration_ms": 26663,
+      "ended_at": "2026-08-19T11:41:48Z",
+      "ended_epoch_ms": 1787139708913,
+      "kind": "olmocr_page",
+      "metadata": {
+        "backend": "codex-exec-shim",
+        "codex_model": "gpt-5.5",
+        "image_count": 1,
+        "model": "gpt-5.5",
+        "output_chars": 3685,
+        "page_number_guess": null,
+        "page_request_index": 6,
+        "thinking_level": "low"
+      },
+      "schema": "paper-review-timing/v1",
+      "started_at": "2026-08-19T11:41:22Z",
+      "started_epoch_ms": 1787139682250,
+      "status": "completed",
+      "step": "olmocr.page"
+    },
+    {
+      "_source_log": "olmocr-pages.jsonl",
+      "category": "ocr_page",
+      "duration_ms": 86607,
+      "ended_at": "2026-08-19T11:43:15Z",
+      "ended_epoch_ms": 1787139795528,
+      "kind": "olmocr_page",
+      "metadata": {
+        "backend": "codex-exec-shim",
+        "codex_model": "gpt-5.5",
+        "image_count": 1,
+        "model": "gpt-5.5",
+        "output_chars": 9563,
+        "page_number_guess": null,
+        "page_request_index": 7,
+        "thinking_level": "low"
+      },
+      "schema": "paper-review-timing/v1",
+      "started_at": "2026-08-19T11:41:48Z",
+      "started_epoch_ms": 1787139708920,
+      "status": "completed",
+      "step": "olmocr.page"
+    },
+    {
+      "_source_log": "olmocr-pages.jsonl",
+      "category": "ocr_page",
+      "duration_ms": 33641,
+      "ended_at": "2026-08-19T11:43:49Z",
+      "ended_epoch_ms": 1787139829176,
+      "kind": "olmocr_page",
+      "metadata": {
+        "backend": "codex-exec-shim",
+        "codex_model": "gpt-5.5",
+        "image_count": 1,
+        "model": "gpt-5.5",
+        "output_chars": 4452,
+        "page_number_guess": null,
+        "page_request_index": 8,
+        "thinking_level": "low"
+      },
+      "schema": "paper-review-timing/v1",
+      "started_at": "2026-08-19T11:43:15Z",
+      "started_epoch_ms": 1787139795534,
+      "status": "completed",
+      "step": "olmocr.page"
+    },
+    {
+      "_source_log": "olmocr-pages.jsonl",
+      "category": "ocr_page",
+      "duration_ms": 33033,
+      "ended_at": "2026-08-19T11:44:22Z",
+      "ended_epoch_ms": 1787139862215,
+      "kind": "olmocr_page",
+      "metadata": {
+        "backend": "codex-exec-shim",
+        "codex_model": "gpt-5.5",
+        "image_count": 1,
+        "model": "gpt-5.5",
+        "output_chars": 3782,
+        "page_number_guess": null,
+        "page_request_index": 9,
+        "thinking_level": "low"
+      },
+      "schema": "paper-review-timing/v1",
+      "started_at": "2026-08-19T11:43:49Z",
+      "started_epoch_ms": 1787139829182,
+      "status": "completed",
+      "step": "olmocr.page"
+    },
+    {
+      "_source_log": "olmocr-pages.jsonl",
+      "category": "ocr_page",
+      "duration_ms": 32107,
+      "ended_at": "2026-08-19T11:44:54Z",
+      "ended_epoch_ms": 1787139894329,
+      "kind": "olmocr_page",
+      "metadata": {
+        "backend": "codex-exec-shim",
+        "codex_model": "gpt-5.5",
+        "image_count": 1,
+        "model": "gpt-5.5",
+        "output_chars": 3717,
+        "page_number_guess": null,
+        "page_request_index": 10,
+        "thinking_level": "low"
+      },
+      "schema": "paper-review-timing/v1",
+      "started_at": "2026-08-19T11:44:22Z",
+      "started_epoch_ms": 1787139862222,
+      "status": "completed",
+      "step": "olmocr.page"
+    },
+    {
+      "_source_log": "olmocr-pages.jsonl",
+      "category": "ocr_page",
+      "duration_ms": 41146,
+      "ended_at": "2026-08-19T11:45:35Z",
+      "ended_epoch_ms": 1787139935483,
+      "kind": "olmocr_page",
+      "metadata": {
+        "backend": "codex-exec-shim",
+        "codex_model": "gpt-5.5",
+        "image_count": 1,
+        "model": "gpt-5.5",
+        "output_chars": 5597,
+        "page_number_guess": null,
+        "page_request_index": 11,
+        "thinking_level": "low"
+      },
+      "schema": "paper-review-timing/v1",
+      "started_at": "2026-08-19T11:44:54Z",
+      "started_epoch_ms": 1787139894336,
+      "status": "completed",
+      "step": "olmocr.page"
+    },
+    {
+      "_source_log": "olmocr-pages.jsonl",
+      "category": "ocr_page",
+      "duration_ms": 28830,
+      "ended_at": "2026-08-19T11:46:04Z",
+      "ended_epoch_ms": 1787139964319,
+      "kind": "olmocr_page",
+      "metadata": {
+        "backend": "codex-exec-shim",
+        "codex_model": "gpt-5.5",
+        "image_count": 1,
+        "model": "gpt-5.5",
+        "output_chars": 3631,
+        "page_number_guess": null,
+        "page_request_index": 12,
+        "thinking_level": "low"
+      },
+      "schema": "paper-review-timing/v1",
+      "started_at": "2026-08-19T11:45:35Z",
+      "started_epoch_ms": 1787139935489,
+      "status": "completed",
+      "step": "olmocr.page"
+    },
+    {
+      "_source_log": "olmocr-pages.jsonl",
+      "category": "ocr_page",
+      "duration_ms": 27102,
+      "ended_at": "2026-08-19T11:46:31Z",
+      "ended_epoch_ms": 1787139991430,
+      "kind": "olmocr_page",
+      "metadata": {
+        "backend": "codex-exec-shim",
+        "codex_model": "gpt-5.5",
+        "image_count": 1,
+        "model": "gpt-5.5",
+        "output_chars": 3881,
+        "page_number_guess": null,
+        "page_request_index": 13,
+        "thinking_level": "low"
+      },
+      "schema": "paper-review-timing/v1",
+      "started_at": "2026-08-19T11:46:04Z",
+      "started_epoch_ms": 1787139964327,
+      "status": "completed",
+      "step": "olmocr.page"
+    },
+    {
+      "_source_log": "olmocr-pages.jsonl",
+      "category": "ocr_page",
+      "duration_ms": 33548,
+      "ended_at": "2026-08-19T11:47:04Z",
+      "ended_epoch_ms": 1787140024985,
+      "kind": "olmocr_page",
+      "metadata": {
+        "backend": "codex-exec-shim",
+        "codex_model": "gpt-5.5",
+        "image_count": 1,
+        "model": "gpt-5.5",
+        "output_chars": 4080,
+        "page_number_guess": null,
+        "page_request_index": 14,
+        "thinking_level": "low"
+      },
+      "schema": "paper-review-timing/v1",
+      "started_at": "2026-08-19T11:46:31Z",
+      "started_epoch_ms": 1787139991437,
+      "status": "completed",
+      "step": "olmocr.page"
+    },
+    {
+      "_source_log": "olmocr-pages.jsonl",
+      "category": "ocr_page",
+      "duration_ms": 39864,
+      "ended_at": "2026-08-19T11:47:44Z",
+      "ended_epoch_ms": 1787140064856,
+      "kind": "olmocr_page",
+      "metadata": {
+        "backend": "codex-exec-shim",
+        "codex_model": "gpt-5.5",
+        "image_count": 1,
+        "model": "gpt-5.5",
+        "output_chars": 5123,
+        "page_number_guess": null,
+        "page_request_index": 15,
+        "thinking_level": "low"
+      },
+      "schema": "paper-review-timing/v1",
+      "started_at": "2026-08-19T11:47:04Z",
+      "started_epoch_ms": 1787140024992,
+      "status": "completed",
+      "step": "olmocr.page"
+    },
+    {
+      "_source_log": "olmocr-pages.jsonl",
+      "category": "ocr_page",
+      "duration_ms": 38269,
+      "ended_at": "2026-08-19T11:48:23Z",
+      "ended_epoch_ms": 1787140103134,
+      "kind": "olmocr_page",
+      "metadata": {
+        "backend": "codex-exec-shim",
+        "codex_model": "gpt-5.5",
+        "image_count": 1,
+        "model": "gpt-5.5",
+        "output_chars": 4036,
+        "page_number_guess": null,
+        "page_request_index": 16,
+        "thinking_level": "low"
+      },
+      "schema": "paper-review-timing/v1",
+      "started_at": "2026-08-19T11:47:44Z",
+      "started_epoch_ms": 1787140064864,
+      "status": "completed",
+      "step": "olmocr.page"
+    },
+    {
+      "_source_log": "olmocr-pages.jsonl",
+      "category": "ocr_page",
+      "duration_ms": 33218,
+      "ended_at": "2026-08-19T11:48:56Z",
+      "ended_epoch_ms": 1787140136359,
+      "kind": "olmocr_page",
+      "metadata": {
+        "backend": "codex-exec-shim",
+        "codex_model": "gpt-5.5",
+        "image_count": 1,
+        "model": "gpt-5.5",
+        "output_chars": 4145,
+        "page_number_guess": null,
+        "page_request_index": 17,
+        "thinking_level": "low"
+      },
+      "schema": "paper-review-timing/v1",
+      "started_at": "2026-08-19T11:48:23Z",
+      "started_epoch_ms": 1787140103140,
+      "status": "completed",
+      "step": "olmocr.page"
+    },
+    {
+      "_source_log": "olmocr-pages.jsonl",
+      "category": "ocr_page",
+      "duration_ms": 37904,
+      "ended_at": "2026-08-19T11:49:34Z",
+      "ended_epoch_ms": 1787140174271,
+      "kind": "olmocr_page",
+      "metadata": {
+        "backend": "codex-exec-shim",
+        "codex_model": "gpt-5.5",
+        "image_count": 1,
+        "model": "gpt-5.5",
+        "output_chars": 5044,
+        "page_number_guess": null,
+        "page_request_index": 18,
+        "thinking_level": "low"
+      },
+      "schema": "paper-review-timing/v1",
+      "started_at": "2026-08-19T11:48:56Z",
+      "started_epoch_ms": 1787140136366,
+      "status": "completed",
+      "step": "olmocr.page"
+    },
+    {
+      "_source_log": "olmocr-pages.jsonl",
+      "category": "ocr_page",
+      "duration_ms": 27315,
+      "ended_at": "2026-08-19T11:50:01Z",
+      "ended_epoch_ms": 1787140201593,
+      "kind": "olmocr_page",
+      "metadata": {
+        "backend": "codex-exec-shim",
+        "codex_model": "gpt-5.5",
+        "image_count": 1,
+        "model": "gpt-5.5",
+        "output_chars": 2731,
+        "page_number_guess": null,
+        "page_request_index": 19,
+        "thinking_level": "low"
+      },
+      "schema": "paper-review-timing/v1",
+      "started_at": "2026-08-19T11:49:34Z",
+      "started_epoch_ms": 1787140174277,
+      "status": "completed",
+      "step": "olmocr.page"
+    },
+    {
+      "_source_log": "timing.jsonl",
+      "category": "explainer",
+      "duration_ms": 0,
+      "ended_at": "2026-08-19T12:14:45.994000Z",
+      "ended_epoch_ms": 1787141685994,
+      "kind": "event",
+      "metadata": {
+        "{\"url\":\"http://127.0.0.1:8765\",\"model\":\"gpt-5.5\",\"thinking\":\"high\"}": true
+      },
+      "schema": "paper-review-timing/v1",
+      "started_at": "2026-08-19T12:14:45.994000Z",
+      "started_epoch_ms": 1787141685994,
+      "status": "running",
+      "step": "explainer.start"
+    }
+  ],
+  "generated_at": "2026-08-19T12:14:46.089607Z",
+  "olmocr_pages": [
+    {
+      "_source_log": "olmocr-pages.jsonl",
+      "category": "ocr_page",
+      "duration_ms": 20709,
+      "ended_at": "2026-08-19T11:39:00Z",
+      "ended_epoch_ms": 1787139540356,
+      "kind": "olmocr_page",
+      "metadata": {
+        "backend": "codex-exec-shim",
+        "codex_model": "gpt-5.5",
+        "image_count": 1,
+        "model": "gpt-5.5",
+        "output_chars": 1590,
+        "page_number_guess": null,
+        "page_request_index": 1,
+        "thinking_level": "low"
+      },
+      "schema": "paper-review-timing/v1",
+      "started_at": "2026-08-19T11:38:39Z",
+      "started_epoch_ms": 1787139519646,
+      "status": "completed",
+      "step": "olmocr.page"
+    },
+    {
+      "_source_log": "olmocr-pages.jsonl",
+      "category": "ocr_page",
+      "duration_ms": 30189,
+      "ended_at": "2026-08-19T11:39:30Z",
+      "ended_epoch_ms": 1787139570553,
+      "kind": "olmocr_page",
+      "metadata": {
+        "backend": "codex-exec-shim",
+        "codex_model": "gpt-5.5",
+        "image_count": 1,
+        "model": "gpt-5.5",
+        "output_chars": 3793,
+        "page_number_guess": null,
+        "page_request_index": 2,
+        "thinking_level": "low"
+      },
+      "schema": "paper-review-timing/v1",
+      "started_at": "2026-08-19T11:39:00Z",
+      "started_epoch_ms": 1787139540363,
+      "status": "completed",
+      "step": "olmocr.page"
+    },
+    {
+      "_source_log": "olmocr-pages.jsonl",
+      "category": "ocr_page",
+      "duration_ms": 35310,
+      "ended_at": "2026-08-19T11:40:05Z",
+      "ended_epoch_ms": 1787139605869,
+      "kind": "olmocr_page",
+      "metadata": {
+        "backend": "codex-exec-shim",
+        "codex_model": "gpt-5.5",
+        "image_count": 1,
+        "model": "gpt-5.5",
+        "output_chars": 4564,
+        "page_number_guess": null,
+        "page_request_index": 3,
+        "thinking_level": "low"
+      },
+      "schema": "paper-review-timing/v1",
+      "started_at": "2026-08-19T11:39:30Z",
+      "started_epoch_ms": 1787139570559,
+      "status": "completed",
+      "step": "olmocr.page"
+    },
+    {
+      "_source_log": "olmocr-pages.jsonl",
+      "category": "ocr_page",
+      "duration_ms": 38753,
+      "ended_at": "2026-08-19T11:40:44Z",
+      "ended_epoch_ms": 1787139644629,
+      "kind": "olmocr_page",
+      "metadata": {
+        "backend": "codex-exec-shim",
+        "codex_model": "gpt-5.5",
+        "image_count": 1,
+        "model": "gpt-5.5",
+        "output_chars": 4841,
+        "page_number_guess": null,
+        "page_request_index": 4,
+        "thinking_level": "low"
+      },
+      "schema": "paper-review-timing/v1",
+      "started_at": "2026-08-19T11:40:05Z",
+      "started_epoch_ms": 1787139605876,
+      "status": "completed",
+      "step": "olmocr.page"
+    },
+    {
+      "_source_log": "olmocr-pages.jsonl",
+      "category": "ocr_page",
+      "duration_ms": 37607,
+      "ended_at": "2026-08-19T11:41:22Z",
+      "ended_epoch_ms": 1787139682243,
+      "kind": "olmocr_page",
+      "metadata": {
+        "backend": "codex-exec-shim",
+        "codex_model": "gpt-5.5",
+        "image_count": 1,
+        "model": "gpt-5.5",
+        "output_chars": 4817,
+        "page_number_guess": null,
+        "page_request_index": 5,
+        "thinking_level": "low"
+      },
+      "schema": "paper-review-timing/v1",
+      "started_at": "2026-08-19T11:40:44Z",
+      "started_epoch_ms": 1787139644636,
+      "status": "completed",
+      "step": "olmocr.page"
+    },
+    {
+      "_source_log": "olmocr-pages.jsonl",
+      "category": "ocr_page",
+      "duration_ms": 26663,
+      "ended_at": "2026-08-19T11:41:48Z",
+      "ended_epoch_ms": 1787139708913,
+      "kind": "olmocr_page",
+      "metadata": {
+        "backend": "codex-exec-shim",
+        "codex_model": "gpt-5.5",
+        "image_count": 1,
+        "model": "gpt-5.5",
+        "output_chars": 3685,
+        "page_number_guess": null,
+        "page_request_index": 6,
+        "thinking_level": "low"
+      },
+      "schema": "paper-review-timing/v1",
+      "started_at": "2026-08-19T11:41:22Z",
+      "started_epoch_ms": 1787139682250,
+      "status": "completed",
+      "step": "olmocr.page"
+    },
+    {
+      "_source_log": "olmocr-pages.jsonl",
+      "category": "ocr_page",
+      "duration_ms": 86607,
+      "ended_at": "2026-08-19T11:43:15Z",
+      "ended_epoch_ms": 1787139795528,
+      "kind": "olmocr_page",
+      "metadata": {
+        "backend": "codex-exec-shim",
+        "codex_model": "gpt-5.5",
+        "image_count": 1,
+        "model": "gpt-5.5",
+        "output_chars": 9563,
+        "page_number_guess": null,
+        "page_request_index": 7,
+        "thinking_level": "low"
+      },
+      "schema": "paper-review-timing/v1",
+      "started_at": "2026-08-19T11:41:48Z",
+      "started_epoch_ms": 1787139708920,
+      "status": "completed",
+      "step": "olmocr.page"
+    },
+    {
+      "_source_log": "olmocr-pages.jsonl",
+      "category": "ocr_page",
+      "duration_ms": 33641,
+      "ended_at": "2026-08-19T11:43:49Z",
+      "ended_epoch_ms": 1787139829176,
+      "kind": "olmocr_page",
+      "metadata": {
+        "backend": "codex-exec-shim",
+        "codex_model": "gpt-5.5",
+        "image_count": 1,
+        "model": "gpt-5.5",
+        "output_chars": 4452,
+        "page_number_guess": null,
+        "page_request_index": 8,
+        "thinking_level": "low"
+      },
+      "schema": "paper-review-timing/v1",
+      "started_at": "2026-08-19T11:43:15Z",
+      "started_epoch_ms": 1787139795534,
+      "status": "completed",
+      "step": "olmocr.page"
+    },
+    {
+      "_source_log": "olmocr-pages.jsonl",
+      "category": "ocr_page",
+      "duration_ms": 33033,
+      "ended_at": "2026-08-19T11:44:22Z",
+      "ended_epoch_ms": 1787139862215,
+      "kind": "olmocr_page",
+      "metadata": {
+        "backend": "codex-exec-shim",
+        "codex_model": "gpt-5.5",
+        "image_count": 1,
+        "model": "gpt-5.5",
+        "output_chars": 3782,
+        "page_number_guess": null,
+        "page_request_index": 9,
+        "thinking_level": "low"
+      },
+      "schema": "paper-review-timing/v1",
+      "started_at": "2026-08-19T11:43:49Z",
+      "started_epoch_ms": 1787139829182,
+      "status": "completed",
+      "step": "olmocr.page"
+    },
+    {
+      "_source_log": "olmocr-pages.jsonl",
+      "category": "ocr_page",
+      "duration_ms": 32107,
+      "ended_at": "2026-08-19T11:44:54Z",
+      "ended_epoch_ms": 1787139894329,
+      "kind": "olmocr_page",
+      "metadata": {
+        "backend": "codex-exec-shim",
+        "codex_model": "gpt-5.5",
+        "image_count": 1,
+        "model": "gpt-5.5",
+        "output_chars": 3717,
+        "page_number_guess": null,
+        "page_request_index": 10,
+        "thinking_level": "low"
+      },
+      "schema": "paper-review-timing/v1",
+      "started_at": "2026-08-19T11:44:22Z",
+      "started_epoch_ms": 1787139862222,
+      "status": "completed",
+      "step": "olmocr.page"
+    },
+    {
+      "_source_log": "olmocr-pages.jsonl",
+      "category": "ocr_page",
+      "duration_ms": 41146,
+      "ended_at": "2026-08-19T11:45:35Z",
+      "ended_epoch_ms": 1787139935483,
+      "kind": "olmocr_page",
+      "metadata": {
+        "backend": "codex-exec-shim",
+        "codex_model": "gpt-5.5",
+        "image_count": 1,
+        "model": "gpt-5.5",
+        "output_chars": 5597,
+        "page_number_guess": null,
+        "page_request_index": 11,
+        "thinking_level": "low"
+      },
+      "schema": "paper-review-timing/v1",
+      "started_at": "2026-08-19T11:44:54Z",
+      "started_epoch_ms": 1787139894336,
+      "status": "completed",
+      "step": "olmocr.page"
+    },
+    {
+      "_source_log": "olmocr-pages.jsonl",
+      "category": "ocr_page",
+      "duration_ms": 28830,
+      "ended_at": "2026-08-19T11:46:04Z",
+      "ended_epoch_ms": 1787139964319,
+      "kind": "olmocr_page",
+      "metadata": {
+        "backend": "codex-exec-shim",
+        "codex_model": "gpt-5.5",
+        "image_count": 1,
+        "model": "gpt-5.5",
+        "output_chars": 3631,
+        "page_number_guess": null,
+        "page_request_index": 12,
+        "thinking_level": "low"
+      },
+      "schema": "paper-review-timing/v1",
+      "started_at": "2026-08-19T11:45:35Z",
+      "started_epoch_ms": 1787139935489,
+      "status": "completed",
+      "step": "olmocr.page"
+    },
+    {
+      "_source_log": "olmocr-pages.jsonl",
+      "category": "ocr_page",
+      "duration_ms": 27102,
+      "ended_at": "2026-08-19T11:46:31Z",
+      "ended_epoch_ms": 1787139991430,
+      "kind": "olmocr_page",
+      "metadata": {
+        "backend": "codex-exec-shim",
+        "codex_model": "gpt-5.5",
+        "image_count": 1,
+        "model": "gpt-5.5",
+        "output_chars": 3881,
+        "page_number_guess": null,
+        "page_request_index": 13,
+        "thinking_level": "low"
+      },
+      "schema": "paper-review-timing/v1",
+      "started_at": "2026-08-19T11:46:04Z",
+      "started_epoch_ms": 1787139964327,
+      "status": "completed",
+      "step": "olmocr.page"
+    },
+    {
+      "_source_log": "olmocr-pages.jsonl",
+      "category": "ocr_page",
+      "duration_ms": 33548,
+      "ended_at": "2026-08-19T11:47:04Z",
+      "ended_epoch_ms": 1787140024985,
+      "kind": "olmocr_page",
+      "metadata": {
+        "backend": "codex-exec-shim",
+        "codex_model": "gpt-5.5",
+        "image_count": 1,
+        "model": "gpt-5.5",
+        "output_chars": 4080,
+        "page_number_guess": null,
+        "page_request_index": 14,
+        "thinking_level": "low"
+      },
+      "schema": "paper-review-timing/v1",
+      "started_at": "2026-08-19T11:46:31Z",
+      "started_epoch_ms": 1787139991437,
+      "status": "completed",
+      "step": "olmocr.page"
+    },
+    {
+      "_source_log": "olmocr-pages.jsonl",
+      "category": "ocr_page",
+      "duration_ms": 39864,
+      "ended_at": "2026-08-19T11:47:44Z",
+      "ended_epoch_ms": 1787140064856,
+      "kind": "olmocr_page",
+      "metadata": {
+        "backend": "codex-exec-shim",
+        "codex_model": "gpt-5.5",
+        "image_count": 1,
+        "model": "gpt-5.5",
+        "output_chars": 5123,
+        "page_number_guess": null,
+        "page_request_index": 15,
+        "thinking_level": "low"
+      },
+      "schema": "paper-review-timing/v1",
+      "started_at": "2026-08-19T11:47:04Z",
+      "started_epoch_ms": 1787140024992,
+      "status": "completed",
+      "step": "olmocr.page"
+    },
+    {
+      "_source_log": "olmocr-pages.jsonl",
+      "category": "ocr_page",
+      "duration_ms": 38269,
+      "ended_at": "2026-08-19T11:48:23Z",
+      "ended_epoch_ms": 1787140103134,
+      "kind": "olmocr_page",
+      "metadata": {
+        "backend": "codex-exec-shim",
+        "codex_model": "gpt-5.5",
+        "image_count": 1,
+        "model": "gpt-5.5",
+        "output_chars": 4036,
+        "page_number_guess": null,
+        "page_request_index": 16,
+        "thinking_level": "low"
+      },
+      "schema": "paper-review-timing/v1",
+      "started_at": "2026-08-19T11:47:44Z",
+      "started_epoch_ms": 1787140064864,
+      "status": "completed",
+      "step": "olmocr.page"
+    },
+    {
+      "_source_log": "olmocr-pages.jsonl",
+      "category": "ocr_page",
+      "duration_ms": 33218,
+      "ended_at": "2026-08-19T11:48:56Z",
+      "ended_epoch_ms": 1787140136359,
+      "kind": "olmocr_page",
+      "metadata": {
+        "backend": "codex-exec-shim",
+        "codex_model": "gpt-5.5",
+        "image_count": 1,
+        "model": "gpt-5.5",
+        "output_chars": 4145,
+        "page_number_guess": null,
+        "page_request_index": 17,
+        "thinking_level": "low"
+      },
+      "schema": "paper-review-timing/v1",
+      "started_at": "2026-08-19T11:48:23Z",
+      "started_epoch_ms": 1787140103140,
+      "status": "completed",
+      "step": "olmocr.page"
+    },
+    {
+      "_source_log": "olmocr-pages.jsonl",
+      "category": "ocr_page",
+      "duration_ms": 37904,
+      "ended_at": "2026-08-19T11:49:34Z",
+      "ended_epoch_ms": 1787140174271,
+      "kind": "olmocr_page",
+      "metadata": {
+        "backend": "codex-exec-shim",
+        "codex_model": "gpt-5.5",
+        "image_count": 1,
+        "model": "gpt-5.5",
+        "output_chars": 5044,
+        "page_number_guess": null,
+        "page_request_index": 18,
+        "thinking_level": "low"
+      },
+      "schema": "paper-review-timing/v1",
+      "started_at": "2026-08-19T11:48:56Z",
+      "started_epoch_ms": 1787140136366,
+      "status": "completed",
+      "step": "olmocr.page"
+    },
+    {
+      "_source_log": "olmocr-pages.jsonl",
+      "category": "ocr_page",
+      "duration_ms": 27315,
+      "ended_at": "2026-08-19T11:50:01Z",
+      "ended_epoch_ms": 1787140201593,
+      "kind": "olmocr_page",
+      "metadata": {
+        "backend": "codex-exec-shim",
+        "codex_model": "gpt-5.5",
+        "image_count": 1,
+        "model": "gpt-5.5",
+        "output_chars": 2731,
+        "page_number_guess": null,
+        "page_request_index": 19,
+        "thinking_level": "low"
+      },
+      "schema": "paper-review-timing/v1",
+      "started_at": "2026-08-19T11:49:34Z",
+      "started_epoch_ms": 1787140174277,
+      "status": "completed",
+      "step": "olmocr.page"
+    }
+  ],
+  "overall": {
+    "failed_step_count": 3,
+    "olmocr_page_mean_duration_ms": 35885,
+    "olmocr_page_request_count": 19,
+    "olmocr_page_total_duration_ms": 681815,
+    "timed_step_count": 8,
+    "top_level_duration_ms": 704404,
+    "wall_clock_span_ms": 2619838
+  },
+  "schema": "paper-review-timing-summary/v1",
+  "slowest_steps": [
+    {
+      "_source_log": "timing.jsonl",
+      "category": "ocr",
+      "duration_ms": 687251,
+      "ended_at": "2026-08-19T11:50:02.057000Z",
+      "ended_epoch_ms": 1787140202057,
+      "kind": "step",
+      "metadata": {
+        "backend": "codex-exec-shim",
+        "model": "gpt-5.5",
+        "thinking_level": "low",
+        "workspace": "docs/paper/ICLR2027/review_artifacts/roadocc_external_skill/olmocr-workspace"
+      },
+      "schema": "paper-review-timing/v1",
+      "started_at": "2026-08-19T11:38:34.806000Z",
+      "started_epoch_ms": 1787139514806,
+      "status": "completed",
+      "step": "olmocr.total"
+    },
+    {
+      "_source_log": "timing.jsonl",
+      "category": "preflight",
+      "duration_ms": 16139,
+      "ended_at": "2026-08-19T11:35:35.985000Z",
+      "ended_epoch_ms": 1787139335985,
+      "kind": "step",
+      "metadata": {
+        "command": "bash /home/bxk/.codex/skills/research-paper-review-full/scripts/check_olmocr_required.sh"
+      },
+      "schema": "paper-review-timing/v1",
+      "started_at": "2026-08-19T11:35:19.846000Z",
+      "started_epoch_ms": 1787139319846,
+      "status": "completed",
+      "step": "preflight.olmocr"
+    },
+    {
+      "_source_log": "timing.jsonl",
+      "category": "preflight",
+      "duration_ms": 486,
+      "ended_at": "2026-08-19T11:35:36.572000Z",
+      "ended_epoch_ms": 1787139336572,
+      "kind": "step",
+      "metadata": {
+        "command": "bash /home/bxk/.codex/skills/research-paper-review-full/scripts/check_html_explainer_required.sh"
+      },
+      "schema": "paper-review-timing/v1",
+      "started_at": "2026-08-19T11:35:36.086000Z",
+      "started_epoch_ms": 1787139336086,
+      "status": "completed",
+      "step": "preflight.html_explainer"
+    },
+    {
+      "_source_log": "timing.jsonl",
+      "category": "preflight",
+      "duration_ms": 386,
+      "ended_at": "2026-08-19T11:31:24.413000Z",
+      "ended_epoch_ms": 1787139084413,
+      "kind": "step",
+      "metadata": {
+        "command": "bash /home/bxk/.codex/skills/research-paper-review-full/scripts/check_html_explainer_required.sh"
+      },
+      "schema": "paper-review-timing/v1",
+      "started_at": "2026-08-19T11:31:24.027000Z",
+      "started_epoch_ms": 1787139084027,
+      "status": "completed",
+      "step": "preflight.html_explainer"
+    },
+    {
+      "_source_log": "timing.jsonl",
+      "category": "preprocessing",
+      "duration_ms": 130,
+      "ended_at": "2026-08-19T11:35:54.134000Z",
+      "ended_epoch_ms": 1787139354134,
+      "kind": "step",
+      "metadata": {
+        "command": "python /home/bxk/.codex/skills/research-paper-review-full/scripts/scope_paper_pdf.py --pdf docs/paper/ICLR2027/manuscript.pdf --output docs/paper/ICLR2027/review_artifacts/roadocc_external_skill/source/roadocc_external_skill_scoped_full.pdf --metadata docs/paper/ICLR2027/review_artifacts/roadocc_external_skill/source/roadocc_external_skill_scope.json --force-full"
+      },
+      "schema": "paper-review-timing/v1",
+      "started_at": "2026-08-19T11:35:54.004000Z",
+      "started_epoch_ms": 1787139354004,
+      "status": "completed",
+      "step": "scope.pdf"
+    },
+    {
+      "_source_log": "timing.jsonl",
+      "category": "preflight",
+      "duration_ms": 8,
+      "ended_at": "2026-08-19T11:31:23.920000Z",
+      "ended_epoch_ms": 1787139083920,
+      "kind": "step",
+      "metadata": {
+        "command": "bash /home/bxk/.codex/skills/research-paper-review-full/scripts/check_olmocr_required.sh",
+        "returncode": 1
+      },
+      "schema": "paper-review-timing/v1",
+      "started_at": "2026-08-19T11:31:23.912000Z",
+      "started_epoch_ms": 1787139083912,
+      "status": "failed",
+      "step": "preflight.olmocr"
+    },
+    {
+      "_source_log": "timing.jsonl",
+      "category": "preflight",
+      "duration_ms": 2,
+      "ended_at": "2026-08-19T11:31:06.158000Z",
+      "ended_epoch_ms": 1787139066158,
+      "kind": "step",
+      "metadata": {
+        "command": "/home/bxk/.codex/skills/research-paper-review-full/scripts/check_olmocr_required.sh",
+        "error": "[Errno 13] Permission denied: '/home/bxk/.codex/skills/research-paper-review-full/scripts/check_olmocr_required.sh'"
+      },
+      "schema": "paper-review-timing/v1",
+      "started_at": "2026-08-19T11:31:06.156000Z",
+      "started_epoch_ms": 1787139066156,
+      "status": "failed",
+      "step": "preflight.olmocr"
+    },
+    {
+      "_source_log": "timing.jsonl",
+      "category": "preflight",
+      "duration_ms": 2,
+      "ended_at": "2026-08-19T11:31:06.249000Z",
+      "ended_epoch_ms": 1787139066249,
+      "kind": "step",
+      "metadata": {
+        "command": "/home/bxk/.codex/skills/research-paper-review-full/scripts/check_html_explainer_required.sh",
+        "error": "[Errno 13] Permission denied: '/home/bxk/.codex/skills/research-paper-review-full/scripts/check_html_explainer_required.sh'"
+      },
+      "schema": "paper-review-timing/v1",
+      "started_at": "2026-08-19T11:31:06.247000Z",
+      "started_epoch_ms": 1787139066247,
+      "status": "failed",
+      "step": "preflight.html_explainer"
+    }
+  ],
+  "source_logs": [
+    "timing/olmocr-pages.jsonl",
+    "timing/timing.jsonl"
+  ]
+}

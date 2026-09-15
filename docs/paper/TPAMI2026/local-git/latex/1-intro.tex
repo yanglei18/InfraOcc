@@ -1,0 +1,150 @@
+%%%%%%%%% BODY TEXT
+
+\input{latex/fig/fig01-dataset-sample.tex}
+\IEEEPARstart{I}{nfrastructure}-side perception is becoming an important pillar
+of autonomous driving and intelligent transportation: cameras and LiDARs fixed
+at intersections and road segments continuously observe long-term traffic
+situations beyond the field of view of on-board sensors, providing scene-level
+3D understanding for vehicles, traffic management, and safety monitoring. In
+recent years, semantic occupancy prediction, which jointly estimates geometric
+occupancy and semantic categories in a regular voxel space and unifies static
+layout, dynamic participants, and free space within a single 3D
+representation, has become an important paradigm for driving scene
+understanding~\cite{OpenOccupancy,Occ3D,TPVFormer,SurroundOcc}. However, these
+representations and benchmarks are almost exclusively designed for vehicle-side
+ego-centric perception, where the occupancy volume is defined around a moving
+ego vehicle and the viewpoint and coordinate reference change over
+time~\cite{nuScenes,Occ3D,OpenOccupancy,SurroundOcc}. In contrast, roadside
+cameras and LiDARs are fixed in place and repeatedly observe the same traffic
+space over long periods~\cite{Rope3D,DAIRV2X,V2XReal,RCooper,TUMTrafV2X}. We
+argue that this fixed viewpoint is not a mere change of camera placement, but
+fundamentally alters the problem structure of 3D occupancy prediction: on the
+vehicle side, occupancy prediction estimates a continuously changing
+instantaneous scene frame by frame, whereas on the roadside the same space is
+observed repeatedly, so the occupancy field is no longer a per-frame
+instantaneous state but degenerates into a near-persistent static spatial
+scaffold overlaid with sparse, short-lived dynamic traffic events.
+Fixed-viewpoint roadside occupancy should therefore be treated as a distinct
+problem with its own structure, rather than a viewpoint transfer of
+vehicle-side occupancy.
+
+Existing research, however, advances along two main lines, neither of which
+addresses this structure. First, mainstream semantic occupancy benchmarks and
+methods are ego-centric: whether they build BEV/voxel features through view
+transformation and depth lifting~\cite{BEVDet,BEVDepth}, aggregate multi-view
+and temporal context with transformer queries~\cite{BEVFormer,TPVFormer}, or
+improve voxel reasoning and sparse/compact
+representations~\cite{VoxFormer,OccFormer,SurroundOcc,SparseOcc,GaussianFormer},
+their voxel space is defined around the ego vehicle with a moving coordinate
+frame, and thus neither characterizes the long-term spatial structure under a
+fixed roadside viewpoint nor provides data and diagnostic metrics that measure
+static-dynamic organization. Second, existing infrastructure-side and
+cooperative perception studies are largely object-centric: roadside and
+cooperative perception
+datasets~\cite{Rope3D,DAIRV2X,V2XReal,RCooper,TUMTrafV2X,OPV2V,V2XRadar,
+zheng2026omnihd} and
+methods targeting roadside-camera geometry modeling, ground priors, scenario
+generalization, calibration robustness, and cooperative feature
+fusion~\cite{BEVHeight,BEVHeightPP,MonoGAE,SGV3D,SIFormer,V2XViT,Where2comm}
+mostly focus on 3D detection, tracking, or cooperative detection, yielding
+sparse object boxes rather than a dense scene description that jointly
+represents static infrastructure, dynamic participants, and free space. A few
+cooperative semantic occupancy works have begun to connect V2X perception with
+dense scene completion~\cite{CollaborativeSemanticOcc,SyntheticCollaborativeOcc},
+but they mainly target connected-vehicle cooperation or synthetic settings, and
+dense semantic occupancy under real fixed roadside sensors remains unexplored.
+As a result, the core structure of ``persistent static versus transient
+dynamic'' under a fixed viewpoint has neither a benchmark to measure it nor a
+method to exploit it.
+
+To fill this gap, we build \textbf{InfraOcc}, to our knowledge, the first real-world
+infrastructure-side semantic occupancy benchmark. Constructing roadside
+occupancy annotations is not a simple conversion of existing 3D annotations into
+voxel labels: fixed roadside LiDAR is limited by a single viewpoint and
+occlusions, making it hard to fully cover persistent static background such as
+roads, buildings, vegetation, and guardrails, while dynamic objects in a single
+roadside scan are often sparse and boundary-incomplete. InfraOcc therefore
+adopts a static-dynamic decoupled annotation pipeline: a dynamic branch
+aggregates dynamic geometry from roadside LiDAR sequences and temporally
+consistent object tracklets, a static branch completes the static background
+using the moving viewpoints of vehicle-side LiDAR, and the two are then
+recomposed in a fixed roadside coordinate system with visibility-aware labeling.
+We emphasize that vehicle-side LiDAR is used only for annotation construction;
+benchmark inputs are always restricted to roadside cameras, roadside LiDAR, or
+their combination. InfraOcc further provides a unified camera-only, LiDAR-only,
+and multi-modal evaluation protocol, together with diagnostic metrics that
+separate static and dynamic occupancy.
+
+Statistical analysis of InfraOcc provides the first quantitative
+characterization of this structural disparity. Temporally, static
+infrastructure is highly persistent across frames (a median temporal occupancy
+ratio close to 100\%), whereas dynamic participants have a median temporal
+occupancy ratio of only 1.4\% per location and a 95th percentile of about
+15.7\%; in terms of semantic frequency, static infrastructure accounts for
+97.3\% of occupied voxels while dynamic participants account for only 2.7\%.
+This shows that the fundamental difficulty of roadside occupancy is not merely
+semantic long-tailedness, but the structural asymmetry between persistent static
+structure and transient dynamic evidence. Under this structure, flat one-shot
+voxel classification biases the model toward frequent and spatially dominant
+static patterns, weakening sparse dynamic cues during voxel feature construction
+and 3D context aggregation; simple loss
+reweighting~\cite{FocalLoss,ClassBalancedLoss} can alleviate class imbalance but
+cannot change the way static and dynamic evidence are homogeneously organized.
+
+Building on this, we propose \textbf{ProSD-Occ}, a progressive
+static-to-dynamic reasoning framework that reformulates fixed-viewpoint
+occupancy prediction from ``one-shot classification of all voxels'' into
+``step-by-step reasoning ordered by evidence reliability.'' Its core idea
+directly mirrors the structural asymmetry above: since a roadside scene is the
+superposition of a persistent static scaffold and sparse, transient dynamic
+events on top of it, the model should first explain the stable, reusable part
+and then infer the part that this explanation cannot account for, rather than
+letting sparse dynamic cues be overwhelmed by spatially dominant static patterns
+in a single classification. Concretely, ProSD-Occ first establishes a
+sample-adaptive explanation of the persistent static layout, then uses this
+explanation as a reference to explicitly expose residual evidence that the
+static layout cannot sufficiently account for---often corresponding to sparse
+yet safety-critical dynamic objects---and finally recomposes static, dynamic,
+and free-space evidence into a unified semantic occupancy field. This
+progressive process is realized by four interconnected modules---a Static Layout
+Reasoner, Static-guided Residual Modulation, a Residual Dynamic Predictor, and
+Semantic Recomposition---responsible for layout explanation, evidence exposure,
+dynamic inference, and unified recomposition, respectively. In this way,
+ProSD-Occ turns the static-dynamic asymmetry of the fixed viewpoint from a bias
+that hampers prediction into an explicit, learnable reasoning structure: it
+retains the contextual value of stable static layout while preventing it from
+dominating the prediction of sparse dynamic objects.
+
+We conduct a systematic evaluation of representative occupancy baselines on
+InfraOcc. The experiments cover camera-only, LiDAR-only, and multi-modal
+tracks, and report overall semantic occupancy, dynamic occupancy, static
+occupancy, and geometric occupancy metrics. ProSD-Occ consistently outperforms
+representative baselines under all three sensing settings, achieving 60.08,
+63.66, and 65.87 mIoU$_{\mathrm{all}}$, and 28.97, 33.87, and 37.92
+mIoU$_{\mathrm{dyn}}$, respectively. These results demonstrate that
+static-to-dynamic evidence organization provides stable benefits for
+fixed-view infrastructure occupancy prediction.
+The main contributions of this paper are summarized as follows:
+\begin{itemize}
+\item We introduce \textbf{InfraOcc}, a real-world infrastructure-side
+semantic occupancy benchmark that constructs dense voxel-level annotations in
+a fixed roadside coordinate system and supports unified camera-only,
+LiDAR-only, and multi-modal evaluation. 
+
+\item Based on InfraOcc, we further provide
+a systematic diagnosis of \textbf{static-dynamic asymmetry} in roadside
+occupancy, revealing that the structural asymmetry between persistent static
+infrastructure and sparse dynamic traffic participants is a core challenge of
+this task.
+
+\item We propose \textbf{ProSD-Occ}, a progressive static-to-dynamic
+reasoning framework that explicitly converts static-dynamic asymmetry into a
+learnable reasoning structure through Static Layout Reasoner,
+Static-guided Residual Modulation, Residual Dynamic Predictor, and Semantic
+Recomposition.
+
+\item We compare representative occupancy baselines on InfraOcc and show that
+ProSD-Occ achieves better mIoU$_{\mathrm{all}}$ and
+mIoU$_{\mathrm{dyn}}$ across camera-only, LiDAR-only, and multi-modal
+settings.
+\end{itemize}

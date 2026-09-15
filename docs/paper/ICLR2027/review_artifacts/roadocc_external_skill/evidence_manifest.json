@@ -1,0 +1,90 @@
+{
+  "paper_id": "roadocc_external_skill",
+  "paper_pdf": "docs/paper/ICLR2027/review_artifacts/roadocc_external_skill/source/roadocc_external_skill_scoped_full.pdf",
+  "paper_pdf_original": "docs/paper/ICLR2027/manuscript.pdf",
+  "paper_sha256": "100f2264beac66305a2ff92dcb0c7e11ff515de3dfbdbae072ae946d90b76357",
+  "source_download": null,
+  "review_scope": {
+    "requested_pages": "1-19",
+    "boundary_heading": null,
+    "boundary_page": null,
+    "reason": "Full PDF explicitly retained because the appended supplement contains route-supervision and diagnostic evidence needed for scoring.",
+    "ignored_content": []
+  },
+  "paper_page_images": [],
+  "supplemental_pdfs": [],
+  "review_form": "ICLR 2027-style scoring requested by the user",
+  "ocr_markdown": "ocr/roadocc_external_skill_olmocr.md",
+  "extracted_text": null,
+  "generated_at": "2026-08-19",
+  "user_constraints": [
+    "Do not deduct for the pending latency TBD entry because the author will fill it later."
+  ],
+  "tool_notes": {
+    "ai_interface": "codex exec",
+    "codex_version": "codex-cli 0.147.0",
+    "codex_model": "gpt-5.5",
+    "olmocr_preflight": "scripts/check_olmocr_required.sh succeeded after installing olmocr 0.4.27 in a Python 3.11 repo-local environment",
+    "olmocr": "scripts/run_olmocr.sh review_artifacts/roadocc_external_skill/olmocr-workspace --pdfs roadocc_external_skill_scoped_full.pdf --markdown",
+    "olmocr_backend": "codex-exec-shim",
+    "timing": {
+      "jsonl": "docs/paper/ICLR2027/review_artifacts/roadocc_external_skill/timing/timing.jsonl",
+      "olmocr_pages_jsonl": "docs/paper/ICLR2027/review_artifacts/roadocc_external_skill/timing/olmocr-pages.jsonl",
+      "summary_json": "docs/paper/ICLR2027/review_artifacts/roadocc_external_skill/timing/timing_summary.json",
+      "report_md": "docs/paper/ICLR2027/review_artifacts/roadocc_external_skill/timing/timing_report.md"
+    },
+    "html_explainer_preflight": "scripts/check_html_explainer_required.sh succeeded",
+    "html_explainer": {
+      "command": "scripts/start_html_explainer.sh --root /home/bxk/CODE-A6000-PhD-3/Occ-V2X-Real --paper docs/paper/ICLR2027/manuscript.pdf --review-html docs/paper/ICLR2027/review_artifacts/roadocc_external_skill/roadocc_external_skill_review_comments.html --host 127.0.0.1 --port 8765",
+      "host": "127.0.0.1",
+      "port": 8765,
+      "url": "http://127.0.0.1:8765",
+      "backend": "codex exec",
+      "status": "running"
+    },
+    "pdf_resampling": "olmOCR page rendering only",
+    "code_execution": "Numerical consistency checks use reported table values only."
+  },
+  "audit_trail": {
+    "prompts": [
+      "prompts/story.prompt.md",
+      "prompts/presentation.prompt.md",
+      "prompts/evaluation.prompt.md",
+      "prompts/correctness.prompt.md",
+      "prompts/significance.prompt.md",
+      "prompts/initial_review.prompt.md",
+      "prompts/self_critique.prompt.md",
+      "prompts/final_review.prompt.md",
+      "prompts/quality_report.prompt.md"
+    ],
+    "responses": [
+      "responses/story.response.md",
+      "responses/presentation.response.md",
+      "responses/evaluation.response.md",
+      "responses/correctness.response.md",
+      "responses/significance.response.md",
+      "responses/initial_review.response.md",
+      "responses/self_critique.response.md",
+      "responses/final_review.response.md",
+      "responses/quality_report.response.md"
+    ],
+    "timing": [
+      "timing/timing_report.md",
+      "timing/timing_summary.json"
+    ]
+  },
+  "artifacts": [
+    "checks/numerical_checks.md",
+    "citation_manifest.md",
+    "stages/story.md",
+    "stages/presentation.md",
+    "stages/evaluation.md",
+    "stages/correctness.md",
+    "stages/significance.md",
+    "initial_review.md",
+    "self_critique.md",
+    "final_review.md",
+    "quality_report.md",
+    "roadocc_external_skill_review_comments.html"
+  ]
+}

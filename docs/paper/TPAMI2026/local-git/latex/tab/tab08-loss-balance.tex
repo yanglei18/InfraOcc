@@ -1,0 +1,19 @@
+\begin{table}[!tbp]
+\caption{\textbf{Static--dynamic loss balance.} We vary branch coefficients while keeping the model architecture fixed.}
+\label{tab:loss_balance}
+\centering
+\scriptsize
+\setlength{\tabcolsep}{2.6pt}
+\renewcommand{\arraystretch}{1.08}
+\begin{tabular*}{\columnwidth}{@{\extracolsep{\fill}}lcccccc@{}}
+\toprule
+Setting & $\lambda_{\mathrm{sta}}$ & $\lambda_{\mathrm{dyn}}$ & gIoU$\uparrow$ & $\mathrm{mIoU}_{\mathrm{all}}\uparrow$ & $\mathrm{mIoU}_{\mathrm{dyn}}\uparrow$ & $\mathrm{mIoU}_{\mathrm{sta}}\uparrow$ \\
+\midrule
+Static-light  & 0.5 & 1.0 & 87.54 & 59.52 & 28.99 & 82.41 \\
+Dynamic-light & 1.0 & 0.5 & 87.96 & 59.37 & 27.63 & 83.18 \\
+Balanced      & 1.0 & 1.0 & \bestcell{89.08} & \bestcell{60.08} & 28.97 & \bestcell{83.42} \\
+Dynamic-heavy & 1.0 & 2.0 & 87.83 & 59.82 & \bestcell{29.26} & 82.74 \\
+Static-heavy  & 2.0 & 1.0 & 88.34 & 59.46 & 27.72 & 83.27 \\
+\bottomrule
+\end{tabular*}
+\end{table}

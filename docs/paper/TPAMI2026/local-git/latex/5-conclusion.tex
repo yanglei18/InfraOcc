@@ -1,0 +1,14 @@
+This paper studies infrastructure-side semantic occupancy, where fixed
+roadside sensors repeatedly observe stable layouts while dynamic participants
+remain sparse, local, and transient. We introduce InfraOcc, a real-world
+benchmark with dense voxel annotations and unified camera-only, LiDAR-only, and
+multi-modal protocols, and propose \nameplus{}, a progressive static-to-dynamic
+framework that first models persistent layout and then exposes residual dynamic
+evidence under static-confidence guidance. Experiments on InfraOcc show
+consistent improvements in overall and dynamic occupancy across sensing
+regimes, and diagnostic analyses indicate that the gain comes from organizing
+fixed-view static-dynamic evidence rather than from sensor-specific feature
+construction alone. These results suggest that roadside occupancy should be
+evaluated and modeled around its fixed-view scene structure. Future work can
+extend InfraOcc toward larger deployment regions, longer temporal horizons, and
+stronger robustness under calibration and environmental changes.

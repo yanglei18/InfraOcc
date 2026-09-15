@@ -1,0 +1,64 @@
+\subsection{Semantic Occupancy Prediction}
+\label{sec:related_occupancy}
+
+Semantic occupancy prediction jointly estimates geometry and semantics in a
+regular voxel space, giving autonomous driving a dense 3D scene representation.
+Early semantic scene completion completed voxel semantics from partial indoor or
+LiDAR observations, e.g., SSCNet~\cite{SSCNet} and
+SemanticKITTI~\cite{SemanticKITTI}. Occ3D~\cite{Occ3D} and
+OpenOccupancy~\cite{OpenOccupancy} then extended occupancy prediction to
+large-scale driving scenes and standardized dense evaluation. Mainstream methods
+advance through camera-side view transformation and voxel
+construction~\cite{BEVDet,BEVDepth,BEVFormer,TPVFormer,COTR,FBOCC,PanoOcc},
+explicit geometry and camera-LiDAR fusion~\cite{VoxelNet,PointPillars,
+BEVFusion,OccFormer,SurroundOcc}, and efficient representation or supervision
+schemes~\cite{SparseOcc,LowRankOcc,SelfOcc,RenderOcc,GaussianFormer,
+GaussianFormer2,OccMamba,OccWorld,UniOcc}. These works improve feature
+construction, efficiency, and supervision, but remain ego-centric: voxel spaces
+move with the vehicle, and outputs are treated as homogeneous voxel-wise
+classification. They therefore do not characterize fixed-view long-term spatial
+structure or distinguish static layout from dynamic evidence. This paper instead
+studies occupancy in a fixed roadside coordinate system, where persistent static
+infrastructure and sparse dynamic participants coexist in one dense field.
+
+\subsection{Infrastructure-side and Cooperative Perception}
+\label{sec:related_infrastructure}
+
+Infrastructure-side and cooperative perception extend single-vehicle coverage
+with roadside sensors or multi-agent communication. Datasets such as
+Rope3D~\cite{Rope3D}, DAIR-V2X~\cite{DAIRV2X}, V2X-Real~\cite{V2XReal},
+TUMTraf-V2X~\cite{TUMTrafV2X}, RCooper~\cite{RCooper}, OPV2V~\cite{OPV2V}, and
+V2X-Radar~\cite{V2XRadar} support roadside perception, vehicle-infrastructure
+cooperation, and multi-agent collaboration. Methods study roadside geometry and
+robust detection through height modeling~\cite{BEVHeight,BEVHeightPP}, ground
+priors~\cite{MonoGAE}, scenario generalization~\cite{SGV3D}, calibration-aware
+multi-sensor perception~\cite{SIFormer}, and cooperative feature
+fusion~\cite{V2XViT,Where2comm,Coopernaut,bai2024sgdet3d,bai2026rags,bai2026rc,
+zheng2026doracamom}. These studies show the value of fixed infrastructure and
+cooperative sensing under long-range or occluded conditions, but remain
+object-centric and produce sparse boxes rather than dense static/dynamic/free
+space scene descriptions. Recent cooperative occupancy works connect V2X
+perception with dense completion~\cite{CollaborativeSemanticOcc,
+SyntheticCollaborativeOcc}, but focus on multi-agent fusion or synthetic V2X
+settings. Dense semantic occupancy under real fixed roadside sensors therefore
+remains unexplored. InfraOcc fills this gap with fixed-frame voxel annotations,
+unified C/L/C+L evaluation, and temporal/semantic static-dynamic diagnostics.
+
+\input{latex/tab/tab01-dataset-comparison.tex}
+\subsection{Dynamic and Structured Occupancy Modeling}
+\label{sec:related_structured}
+
+The closest methods model dynamics or structure within occupancy prediction.
+Occupancy flow and 4D forecasting model motion and future
+states~\cite{Cam4DOcc,LetOccFlow,UniOcc}, world models learn temporal
+evolution~\cite{OccWorld}, and future-instance prediction models BEV
+dynamics~\cite{FIERY}. Other lines reweight losses for class
+imbalance~\cite{FocalLoss,ClassBalancedLoss} or use sparse-foreground and
+coarse-to-fine representations for efficiency~\cite{SparseOcc,COTR}. These
+methods model temporal motion, adjust class weights, or reduce computation, but
+still assume ego-centric flat voxel classification. None turns the fixed-view
+asymmetry between persistent static structure and transient dynamic evidence
+into ordered evidence reasoning. ProSD-Occ instead explains static layout,
+exposes residual dynamic evidence, and recomposes static, dynamic, and free-space
+evidence, addressing fixed-viewpoint occupancy at the representation and
+reasoning level rather than through loss or temporal adjustments alone.

@@ -1,0 +1,26 @@
+{
+  "ai_interface": "codex exec",
+  "default_model": "gpt-5.5",
+  "environment_overrides": {
+    "model": "PAPER_REVIEW_CODEX_MODEL",
+    "thinking_level": "PAPER_REVIEW_THINKING_<STAGE>"
+  },
+  "generated_at": "2026-08-19T12:15:04.603102Z",
+  "schema": "paper-review-model-provenance/v1",
+  "thinking_levels": {
+    "explainer.qa": "high",
+    "explainer.start": "low",
+    "html.render": "low",
+    "ocr": "low",
+    "preflight": "low",
+    "quality.critic": "high",
+    "review.final": "high",
+    "review.initial": "high",
+    "review.self_critique": "high",
+    "review.stage.correctness": "high",
+    "review.stage.evaluation": "high",
+    "review.stage.presentation": "medium",
+    "review.stage.significance": "high",
+    "review.stage.story": "high"
+  }
+}

@@ -1,0 +1,387 @@
+\subsection{Motivation}
+\label{sec:prosd_design_motivation}
+As established in Sec.~\ref{sec:introduction} and the benchmark diagnostics
+(Sec.~\ref{sec:benchmark_statistics}), the fundamental difficulty of
+fixed-viewpoint roadside occupancy is the structural asymmetry between
+persistent static layout and transient dynamic participants. Under this
+structure, flat one-shot voxel classification is biased toward spatially
+dominant static patterns and weakens sparse dynamic cues, while simple loss
+reweighting~\cite{FocalLoss,ClassBalancedLoss} only adjusts class weights
+without changing how static and dynamic evidence are organized. Accordingly, the
+design principle of ProSD-Occ is to organize occupancy reasoning from stable
+layout to local residual evidence rather than predicting all voxel categories at
+once: the model first establishes a sample-adaptive explanation of the
+persistent static layout, then uses it as a reference to recover residual
+evidence that the static context cannot sufficiently explain---often
+corresponding to sparse yet safety-critical dynamic objects---and finally
+recomposes static, dynamic, and free-space evidence into a unified semantic
+occupancy field. This paradigm exploits the contextual value of stable layout
+while suppressing its dominance over sparse dynamic prediction.
+\input{latex/fig/fig08-method-overview}
+
+\subsection{Overall Architecture}
+\label{sec:prosd_overview}
+
+As shown in \Cref{fig:method_overview_refined}, ProSD-Occ organizes
+infrastructure-side semantic occupancy prediction as a progressive
+static-to-dynamic reasoning framework. The framework decouples modality-specific
+feature construction from modality-agnostic occupancy reasoning. Given
+camera-only, LiDAR-only, or multi-modal inputs, Modality-flexible Feature
+Encoding first converts the observations into a unified voxel representation
+$\bm{F}$. In the camera-only and LiDAR-only settings, $\bm{F}$ is instantiated
+by the corresponding camera or LiDAR voxel feature. In the multi-modal setting,
+camera and LiDAR voxel features are fused before entering the subsequent
+reasoning process. This unified representation enables the same
+static-to-dynamic reasoning pipeline to be applied across all sensing regimes.
+
+Given $\bm{F}$, ProSD-Occ proceeds from stable layout explanation to dynamic
+evidence recovery. Static Layout Reasoner first estimates static logits,
+probabilities, and confidence $(\bm{Z}_{s},\bm{P}_{s},\bm{C}_{s})$, where
+$\bm{C}_{s}$ provides a sample-adaptive soft explanation of persistent
+infrastructure layout. Static-guided Residual Modulation then uses
+$\bm{C}_{s}$ to attenuate static-dominant responses while preserving
+complementary residual information, producing the dynamic-aware feature
+$\bm{F}_{d}$. Based on $\bm{F}_{d}$, Residual Dynamic Predictor estimates
+dynamic logits, probabilities, and confidence
+$(\bm{Z}_{d},\bm{P}_{d},\bm{C}_{d})$, focusing on local and transient object
+evidence. Finally, Semantic Recomposition integrates static, dynamic, and
+free-space evidence at the logit level and outputs the final occupancy logits
+$\bm{Z}_{\mathrm{final}}$.
+
+The resulting data flow is summarized as
+\begin{equation}
+  \bm{F}
+  \rightarrow
+  (\bm{Z}_{s},\bm{P}_{s},\bm{C}_{s})
+  \rightarrow
+  \bm{F}_{d}
+  \rightarrow
+  (\bm{Z}_{d},\bm{P}_{d},\bm{C}_{d})
+  \rightarrow
+  \bm{Z}_{\mathrm{final}},
+\end{equation}
+where $\bm{Z}_{\mathrm{final}}$ is defined over the unified occupancy label
+space and is converted into semantic occupancy probabilities by softmax.
+
+\subsection{Modality-flexible Feature Encoding}
+\label{sec:prosd_modality_flexible}
+ProSD-Occ performs static-to-dynamic occupancy reasoning on a unified voxel
+representation, regardless of the input sensing modality. Given camera images,
+LiDAR points, or both, the modality-specific front-end first maps the
+observations into a shared 3D voxel feature tensor
+\begin{equation}
+  \bm{F}\in\mathbb{R}^{B\times C_f\times Z\times H\times W},
+\end{equation}
+which serves as the common input to the subsequent Progressive
+Static-to-Dynamic Reasoning module.
+
+For camera input, we follow common image-to-BEV/voxel encoding
+designs~\cite{BEVDet,BEVDepth}. Multi-view images are first processed by an
+image backbone and neck, and then lifted into the 3D voxel space through a
+depth-aware view transformation. The resulting camera voxel features are
+further refined with a BEVFormer-style backward projection module~\cite{BEVFormer}
+to aggregate multi-view geometric context. We denote the resulting camera voxel
+feature as $\bm{F}_{cam}$.
+For LiDAR input, point clouds are converted into voxel representations following
+standard voxel-based point cloud encoding~\cite{VoxelNet,PointPillars}. The
+voxelized points are encoded by a sparse LiDAR encoder and then processed by a
+3D convolutional backbone to obtain LiDAR voxel features, denoted as
+$\bm{F}_{lidar}$. This provides a geometry-explicit representation that is
+naturally aligned with the occupancy voxel grid.
+In the multi-modal setting, we follow the unified BEV/voxel fusion paradigm in
+multi-sensor perception~\cite{BEVFusion,OpenOccupancy}. Camera and LiDAR
+features are first projected into the same voxel grid and then fused before
+occupancy reasoning. Concretely, the fusion block computes lightweight
+attention maps from each modality and uses them to cross-modulate the voxel
+features of the other modality. The modulated camera and LiDAR features are
+concatenated and projected back to the shared channel dimension by a 3D
+convolutional block, producing the fused voxel feature
+$\Phi(\bm{F}_{cam},\bm{F}_{lidar})$.
+Therefore, the input to ProSD-Occ is uniformly defined as
+\begin{equation}
+  \bm{F} =
+  \begin{cases}
+  \bm{F}_{cam}, & \text{Camera-only},\\
+  \bm{F}_{lidar}, & \text{LiDAR-only},\\
+  \Phi(\bm{F}_{cam},\bm{F}_{lidar}), & \text{Multi-modal}.
+  \end{cases}
+\end{equation}
+This formulation decouples modality-dependent feature construction from the
+subsequent modality-agnostic static-to-dynamic occupancy reasoning, allowing
+the same ProSD-Occ framework to be applied to camera-only, LiDAR-only, and
+multi-modal infrastructure perception.
+
+\subsection{Progressive Static-to-Dynamic Reasoning}
+\label{sec:prosd_reasoning}
+Following the overview in Sec.~\ref{sec:prosd_overview}, we now detail the
+four components of the progressive reasoning module
+(\Cref{fig:method_overview_refined}): the Static Layout Reasoner,
+Static-guided Residual Modulation, the Residual Dynamic Predictor, and Semantic
+Recomposition.
+\input{latex/tab/tab02-main-results}
+\subsubsection{Static Layout Reasoner.}
+\label{sec:prosd_static_reasoner}
+This module estimates persistent static layout from the unified voxel feature.
+Its goal is to explain stable infrastructure elements before dynamic reasoning
+is performed. Let $\mathcal{S}$ denote the static class set, including road
+surfaces, sidewalks, buildings, vegetation, barriers, and other persistent
+infrastructure categories. As shown in \Cref{fig:method_overview_refined}, the
+Static Layout Reasoner is implemented by a compact BasicBlock3D tower followed
+by a voxel-wise MLP predictor. Each BasicBlock3D is a residual 3D convolutional
+block composed of two $3\times3\times3$ Conv3D-BN layers and a skip connection,
+with ReLU activation applied after residual aggregation. The MLP predictor is
+shared across voxels and consists of two linear layers with a Softplus
+activation, mapping each voxel feature vector to logits over $\mathcal{S}$ and
+an additional ``other'' class:
+\begin{equation}
+  \bm{Z}_{s}=h_s(\bm{F}),
+  \quad
+  \bm{Z}_{s}\in
+  \mathbb{R}^{B\times(|\mathcal{S}|+1)\times Z\times H\times W} .
+\end{equation}
+
+Different from a generic background category, the ``other'' class in the static
+branch explicitly represents voxels that are not explained by static layout,
+including dynamic objects and free space. Therefore, the static branch is not
+asked to solve the full semantic occupancy problem. Instead, it only estimates
+whether each voxel can be explained by persistent static structure. The static
+probability is computed by
+\begin{equation}
+  \bm{P}_{s}=\operatorname{softmax}(\bm{Z}_{s}).
+\end{equation}
+We define the static confidence as the probability that a voxel does not belong
+to the static-branch ``other'' class:
+\begin{equation}
+  \bm{C}_{s}
+  =
+  1-\bm{P}_{s}(\mathrm{other}).
+\end{equation}
+The confidence $\bm{C}_{s}$ provides a sample-adaptive soft explanation of
+persistent layout. It is not used as a hard static mask; instead, it guides the
+subsequent residual modulation step, where static-dominant responses are
+suppressed to expose potential dynamic evidence.
+
+
+\subsubsection{Static-guided Residual Modulation.}
+\label{sec:prosd_residual_modulation}
+
+Static-guided Residual Modulation bridges static layout reasoning and residual
+dynamic prediction by transforming the unified voxel feature $\bm{F}$ into a
+dynamic-aware feature $\bm{F}_{d}$. As shown in
+\Cref{fig:method_overview_refined}, this module contains two complementary
+paths: a suppression path that attenuates static-dominant responses according
+to the predicted static confidence, and a residual path that preserves raw voxel
+evidence to avoid over-suppression.
+
+Given the static confidence $\bm{C}_{s}$, the suppression path constructs a
+voxel-wise suppression gate:
+\begin{equation}
+  \alpha=\sigma(a),
+  \quad
+  \bm{G}
+  =
+  \operatorname{clamp}
+  \left(1-\alpha\,\operatorname{sg}(\bm{C}_{s}),0,1\right),
+\end{equation}
+where $a$ is a learnable scalar, $\alpha\in(0,1)$ controls the suppression
+strength, and $\operatorname{sg}(\cdot)$ denotes stop-gradient. Voxels with high
+static confidence are softly attenuated, encouraging the subsequent dynamic
+branch to focus on evidence not sufficiently explained by static layout. The
+static-suppressed feature is obtained by
+\begin{equation}
+  \bm{F}_{sup}=\bm{F}\odot\bm{G}.
+\end{equation}
+
+Since static confidence can be uncertain around object boundaries, occluded
+regions, or sparse dynamic objects, pure suppression may discard useful dynamic
+cues. The residual path therefore introduces a bypass from the original voxel
+feature:
+\begin{equation}
+  \bm{F}_{raw}
+  =
+  \operatorname{BN}
+  \left(\operatorname{Conv}_{1\times1\times1}(\bm{F})\right),
+  \quad
+  \beta=\sigma(b),
+\end{equation}
+where $b$ is a learnable scalar and $\beta\in(0,1)$ controls the bypass
+strength. The final dynamic-aware feature is then formed as
+\begin{equation}
+  \bm{F}_{d}
+  =
+  \bm{F}_{sup}+\beta\bm{F}_{raw}.
+\end{equation}
+In this way, the module suppresses dominant static responses while retaining
+complementary residual evidence, providing a more suitable representation for
+dynamic occupancy prediction.
+
+\subsubsection{Residual Dynamic Predictor.}
+\label{sec:prosd_dynamic_predictor}
+The Residual Dynamic Predictor estimates transient traffic participants from
+the dynamic-aware feature $\bm{F}_{d}$. Different from the Static Layout
+Reasoner, this module focuses on local, sparse, and boundary-sensitive object
+evidence that remains after static-guided modulation. It adopts the same
+compact BasicBlock3D tower and voxel-wise MLP predictor, but predicts over the
+dynamic class set $\mathcal{D}$ and an additional ``other'' class:
+\begin{equation}
+  \bm{Z}_{d}=h_d(\bm{F}_{d}),
+  \quad
+  \bm{Z}_{d}\in
+  \mathbb{R}^{B\times(|\mathcal{D}|+1)\times Z\times H\times W} .
+\end{equation}
+Here, the dynamic-branch ``other'' class denotes voxels that are not explained
+by dynamic objects, including static structures and free space. The dynamic
+probability and confidence are computed as
+\begin{equation}
+  \bm{P}_{d}=\operatorname{softmax}(\bm{Z}_{d}),
+  \quad
+  \bm{C}_{d}=1-\bm{P}_{d}(\mathrm{other}).
+\end{equation}
+Since $\bm{F}_{d}$ has already been modulated by static confidence, this
+branch is encouraged to recover residual dynamic evidence rather than relearn
+dominant static layout from scratch.
+
+% Queue the main double-column table before Sec. 5 so it can appear earlier.
+
+\input{latex/fig/fig09-modality-qualitative}
+\subsubsection{Semantic Recomposition.}
+\label{sec:prosd_semantic_recomposition}
+After static and dynamic reasoning, the two branches provide complementary
+partial explanations of the occupancy field. The static branch is specialized
+for persistent infrastructure layout, while the dynamic branch focuses on
+transient traffic participants. However, neither branch alone is defined over
+the complete semantic label space. A direct averaging or concatenation of their
+outputs would ignore their branch specialization and blur the distinction
+between static evidence, dynamic evidence, and free-space evidence. Therefore,
+we recompose the branch outputs at the logit level.
+Specifically, given the static outputs $(\bm{P}_{s},\bm{C}_{s})$ and dynamic
+outputs $(\bm{P}_{d},\bm{C}_{d})$, we construct a voxel-wise recomposition
+input:
+\begin{equation}
+  \bm{x}_{g}
+  =
+  [\bm{P}_{s},\bm{C}_{s},\bm{P}_{d},\bm{C}_{d}].
+\end{equation}
+A lightweight MLP followed by a sigmoid function predicts three group-wise
+recomposition weights:
+\begin{equation}
+  [\bm{w}_{\mathrm{static}},\bm{w}_{\mathrm{dynamic}},\bm{w}_{\mathrm{free}}]
+  =
+  \sigma(g_{\phi}(\bm{x}_{g})),
+\end{equation}
+where $\bm{w}_{\mathrm{static}}$, $\bm{w}_{\mathrm{dynamic}}$, and
+$\bm{w}_{\mathrm{free}}$ correspond to
+the static classes, dynamic classes, and free-space class, respectively.
+
+The branch logits $\bm{Z}_{s}$ and $\bm{Z}_{d}$ are then recomposed according to
+their semantic groups. Let $\bm{Z}_{s,o}$ and $\bm{Z}_{d,o}$ denote the
+``other'' logits of the static and dynamic branches. For a static class
+$c\in\mathcal{S}$, the final logit is composed from the corresponding static
+logit and the dynamic-branch ``other'' logit:
+\begin{equation}
+  \bm{Z}_{\mathrm{final},c}
+  =
+  \bm{w}_{\mathrm{static}}\bm{Z}_{s,c}
+  +(1-\bm{w}_{\mathrm{static}})\bm{Z}_{d,o}.
+\end{equation}
+For a dynamic class $c\in\mathcal{D}$, the final logit is composed from the
+dynamic logit and the static-branch ``other'' logit:
+\begin{equation}
+  \bm{Z}_{\mathrm{final},c}
+  =
+  \bm{w}_{\mathrm{dynamic}}\bm{Z}_{s,o}
+  +(1-\bm{w}_{\mathrm{dynamic}})\bm{Z}_{d,c}.
+\end{equation}
+For the free-space class $f$, the final logit is obtained by combining the
+``other'' logits from both branches:
+\begin{equation}
+  \bm{Z}_{\mathrm{final},f}
+  =
+  \bm{w}_{\mathrm{free}}\bm{Z}_{s,o}
+  +(1-\bm{w}_{\mathrm{free}})\bm{Z}_{d,o}.
+\end{equation}
+
+The final semantic occupancy probability is computed as
+\begin{equation}
+  \bm{P}_{\mathrm{final}}
+  =
+  \operatorname{softmax}(\bm{Z}_{\mathrm{final}}).
+\end{equation}
+During training, $\bm{Z}_{\mathrm{final}}$ is directly passed to the occupancy
+loss, while $\bm{P}_{\mathrm{final}}$ is used for semantic occupancy prediction.
+
+% Queue the main qualitative figure before the ablation floats.
+
+
+\subsection{Optimization Objectives}
+\label{sec:prosd_objective}
+
+We supervise three outputs in ProSD-Occ: the final occupancy prediction and the
+two intermediate static and dynamic branch predictions. The final logits
+$\bm{Z}_{\mathrm{final}}$ are supervised in the complete semantic occupancy
+space, yielding $\mathcal{L}_{\mathrm{occ}}$. For the static and dynamic
+branches, semantic classes outside the corresponding group are mapped to the
+branch-specific ``other'' class, yielding $\mathcal{L}_{s}$ and
+$\mathcal{L}_{d}$. All three losses adopt the same composite occupancy
+objective:
+\begin{equation}
+  \mathcal{L}_{r}
+  =
+  \mathcal{L}_{r}^{\mathrm{CE}}
+  +
+  \mathcal{L}_{r}^{\mathrm{Sem}}
+  +
+  \mathcal{L}_{r}^{\mathrm{Lovasz}},
+  \quad r\in\{\mathrm{occ},s,d\},
+\end{equation}
+where $\mathcal{L}^{\mathrm{CE}}$, $\mathcal{L}^{\mathrm{Sem}}$, and
+$\mathcal{L}^{\mathrm{Lovasz}}$ denote cross-entropy loss, semantic scaling
+loss~\cite{MonoScene}, and Lovasz loss~\cite{Berman_2018_CVPR}, respectively.
+
+Finally, since $\bm{C}_{s}$ directly controls the static-guided suppression
+gate, its stability matters: persistent structures observed from a fixed
+viewpoint should yield consistent static confidence across same-scene frames,
+yet per-sample supervision alone leaves it fluctuating under transient
+occlusions, dynamic objects, and sensing noise. We therefore add a
+static-confidence consistency regularizer on high-confidence static voxels.
+Because all frames are annotated in the same fixed roadside coordinate
+system, the static confidences of frames from the same scene are voxel-aligned
+and directly comparable. Within each minibatch, let $\mathcal{B}$ be the set of
+samples from the same scene; we define the per-voxel consensus as the
+stop-gradient batch mean
+\begin{equation}
+  \bar{\bm{C}}_{s}(v)
+  =
+  \operatorname{sg}\!\Big(
+  \tfrac{1}{|\mathcal{B}|}\textstyle\sum_{i\in\mathcal{B}}\bm{C}_{s,i}(v)
+  \Big),
+\end{equation}
+and restrict the regularizer to the high-confidence static set
+$\Omega=\{v:\bar{\bm{C}}_{s}(v)>\tau\}$ with threshold $\tau$. The consistency
+loss then penalizes each frame's deviation from this consensus,
+\begin{equation}
+  \mathcal{L}_{cons}
+  =
+  \frac{1}{|\Omega|}
+  \sum_{i,\,v\in\Omega}
+  \left(
+  \bm{C}_{s,i}(v)-\bar{\bm{C}}_{s}(v)
+  \right)^2 .
+\end{equation}
+The stop-gradient makes the consensus a stable target and prevents the
+trivial collapse of all confidences to a common value, so the regularizer only
+removes per-frame fluctuations on confidently static voxels.
+
+The overall objective is
+\begin{equation}
+  \mathcal{L}
+  =
+  \mathcal{L}_{occ}
+  +
+  \lambda_s\mathcal{L}_{s}
+  +
+  \lambda_d\mathcal{L}_{d}
+  +
+  \lambda_c\mathcal{L}_{cons}.
+\end{equation}
+

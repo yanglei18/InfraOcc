@@ -1,0 +1,38 @@
+\begin{table}[!t]
+\caption{\textbf{Accuracy--efficiency comparison.} Parameters and latency are measured from reproduced local configurations.}
+\label{tab:capacity_efficiency}
+\centering
+\scriptsize
+\setlength{\tabcolsep}{2.1pt}
+\renewcommand{\arraystretch}{1.08}
+\begin{tabular*}{\columnwidth}{@{\extracolsep{\fill}}lcccc@{}}
+\toprule
+Setting & Params. (M)$\downarrow$ & Lat. (ms)$\downarrow$ & $\mathrm{mIoU}_{\mathrm{all}}\uparrow$ & $\mathrm{mIoU}_{\mathrm{dyn}}\uparrow$ \\
+\midrule
+\multicolumn{5}{l}{\textbf{\textit{End-to-end efficiency}}} \\
+\multicolumn{5}{l}{\textit{Multi-modal (C+L)}} \\
+% M-CONet~\cite{OpenOccupancy} & 108.10 & 167.08 & 57.23 & 34.78 \\
+BEVFusion~\cite{BEVFusion} & 108.01 & 103.73 & 55.44 & 32.57 \\
+% BEVDepth~\cite{BEVDepth} & 108.01 & 150.36 & 55.34 & 33.07 \\
+M-ProSD-Occ & 87.02 & 164.42 & 65.87 & 37.92 \\
+\midrule
+\multicolumn{5}{l}{\textit{LiDAR-only (L)}} \\
+% L-CONet~\cite{OpenOccupancy} & 73.27 & 227.34 & 57.76 & 32.48 \\
+VoxelNet~\cite{VoxelNet} & 73.25 & 75.43 & 53.87 & 31.13 \\
+PointPillars~\cite{PointPillars} & 11.59 & 61.68 & 50.51 & 31.55 \\
+L-ProSD-Occ & 30.24 & 109.55 & 63.66 & 33.87 \\
+\midrule
+\multicolumn{5}{l}{\textit{Camera-only (C)}} \\
+BEVDet~\cite{BEVDet} & 100.66 & 41.92 & 45.14 & 21.19 \\
+BEVFormer~\cite{BEVFormer} & 69.21 & 180.59 & 47.76 & 10.73 \\
+BEVDepth~\cite{BEVDepth} & 100.66 & 57.43 & 46.81 & 19.64 \\
+TPVFormer~\cite{TPVFormer} & 80.76 & 134.63 & 43.09 & 4.36 \\
+SurroundOcc~\cite{SurroundOcc} & 80.04 & 44.40 & 50.77 & 11.37 \\
+CONet~\cite{OpenOccupancy} & 100.74 & 53.23 & 49.25 & 18.93 \\
+% STCOcc~\cite{STCOcc} & 59.33 & 178.55 & 50.71 & 23.48 \\
+SparseOcc~\cite{SparseOcc} & 105.08 & 64.30 & 45.42 & 9.41 \\
+GaussianFormer~\cite{GaussianFormer} & 36.32 & 65.50 & 43.63 & 10.45 \\
+C-ProSD-Occ & 57.65 & 72.06 & 60.08 & 28.97 \\
+\bottomrule
+\end{tabular*}
+\end{table}

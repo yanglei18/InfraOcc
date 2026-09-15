@@ -1,0 +1,225 @@
+\subsection{Experimental Setup}
+\input{latex/fig/fig10-prosd-mechanism-features}
+\input{latex/tab/tab03-core-mechanism}
+\noindent \textbf{Protocol.}
+The experiments are organized around three questions aligned with the paper's
+claims: whether \nameplus{} improves infrastructure occupancy across sensing
+regimes, which components cause the gain, and where the model remains
+sensitive under harder diagnostic settings. All main comparisons are conducted
+on InfraOcc under camera-only (C), LiDAR-only (L), and multi-modal (C+L)
+tracks, using the official test split and the same voxel label space. Controlled
+ablations are reported under the camera-only setting because depth evidence is
+weakest there and persistent static background cues are strongest; this setting
+therefore isolates the effect of progressive static-to-dynamic reasoning
+without hiding it behind LiDAR geometry. Unless otherwise stated, models are
+trained for 36 epochs with the same resolution, voxel grid, augmentation,
+optimizer, learning-rate schedule, and class weights.
+
+\noindent \textbf{Metrics.}
+We report geometric IoU (gIoU), semantic mIoU over non-free valid classes
+(All), dynamic-class mIoU (Dyn.), static-class mIoU (Sta.), and free-space IoU.
+These metrics serve different checks. All measures the final semantic occupancy
+field, Dyn. directly measures sparse traffic participants, Sta. verifies that
+dynamic gains are not obtained by damaging the persistent layout, and gIoU/free
+space track geometric occupancy quality. Dynamic classes are bicycle, bus, car,
+motorcycle, pedestrian, and truck. Static classes are others, barrier,
+traffic cone, driveable surface, sidewalk, terrain, manmade, and vegetation;
+construction vehicle, trailer, other flat, and free space are excluded from all
+mIoU means. Thus, $\mathrm{mIoU}_{\mathrm{all}}=(6\,\mathrm{mIoU}_{\mathrm{dyn}}
++8\,\mathrm{mIoU}_{\mathrm{sta}})/14$. Because the core difficulty of fixed roadside
+occupancy is that dynamic participants are easily absorbed by stable
+background, Dyn. is the primary diagnostic metric in the analysis, while
+All/Sta./gIoU are used to check that the improvement remains globally
+consistent.
+
+\subsection{Quantitative Results}
+\subsubsection{Main Comparison}
+\input{latex/tab/tab04-static-guidance}
+\input{latex/tab/tab05-suppression-strength}
+\input{latex/tab/tab06-adaptive-fusion}
+
+Table~\ref{tab:infraocc_main_results} first establishes the main effectiveness
+claim. In the camera-only track, where static background dominance is most
+severe, \nameplus{} raises All from 50.71 to 60.08 and Dyn. from 23.48 to
+28.97 over the plain camera baseline. The same comparison also improves Sta.
+from 71.14 to 83.42 and gIoU from 78.54 to 89.08. The simultaneous gains in
+Dyn., Sta., and gIoU are important for the paper's thesis: \nameplus{} does not
+obtain better mIoU by simply fitting the persistent background, and it does not
+recover dynamic objects by sacrificing layout quality.
+
+The LiDAR-only and multi-modal tracks show that the same reasoning head remains
+beneficial when stronger geometric evidence is available. \nameplus{} reaches
+63.66/33.87 All/Dyn. in the L setting and 65.87/37.92 in the C+L setting,
+outperforming the corresponding listed baselines in both overall and dynamic
+occupancy. The lower camera-only Dyn. score reflects the difficulty of
+monocular roadside depth inference, while the consistent ranking across C, L,
+and C+L indicates that the contribution is not tied to one sensor front-end.
+Instead, the gain comes from organizing voxel evidence from persistent static
+layout toward residual dynamic occupancy.
+\Cref{fig:infraocc_modality_qualitative} gives a sample-aligned qualitative
+view of camera-based methods, placing roadside camera evidence, ground-truth
+occupancy, and predictions from TPVFormer, SparseOCC, STCOcc, and \nameplus{}
+(C) on each row. Compared with STCOcc, the progressive camera model is less
+affected by the dominant static road layout and recovers a cleaner occupancy
+field.
+\input{latex/fig/fig11-prosd-mechanism-errors}
+\input{latex/tab/tab07-static-consistency}
+\input{latex/tab/tab08-loss-balance}
+\input{latex/tab/tab09-branch-losses}
+
+\subsection{Ablation Studies}
+\subsubsection{Progressive Static-to-Dynamic Reasoning}
+Table~\ref{tab:core_mechanism} tests the central causal claim: dynamic
+occupancy improves when the model reasons through static layout before
+predicting residual objects. The flat baseline achieves 50.71 All and 23.48
+Dyn. The parallel S2D/no-suppression control is the same
+setting as the no-static-suppression row, reaching 53.59 All and 24.43 Dyn.;
+this limited gain shows that independent static--dynamic prediction is not
+sufficient without residual conditioning.
+Progressive reasoning further reaches 60.08 All and 28.97 Dyn. because the
+dynamic branch no longer competes with the full static scene in one step; it
+receives a layout-conditioned feature where residual object evidence is easier
+to recover.
+
+The lower block explains why this residual feature must preserve both
+suppressed and raw evidence. Static-guided suppression exposes dynamic cues and
+improves Dyn. from 24.43 to 28.81, but suppression alone weakens the information
+needed for complete semantic reconstruction. Adding the raw-feature bypass
+produces the full result, raising Sta. to 83.42 while keeping the best Dyn.
+This supports the intended role of the module: static evidence is not removed;
+it is attenuated where it dominates and then recombined with residual evidence.
+\Cref{fig:prosd_mechanism_features} visualizes the same mechanism across
+multiple samples. Static confidence is high on persistent road and
+infrastructure regions, suppression is applied around static-dominant
+responses, and the Dynamic-aware feature, visualized as weighted branch-feature
+energy, remains spatially continuous while emphasizing sparse foreground
+occupancy. The last column shows the corresponding ground-truth dynamic
+foreground to make the sparse target regions explicit.
+
+
+\Cref{fig:prosd_mechanism_errors} then compares STCOcc, i.e., the
+Plain (C) baseline, with \nameplus{} (C). The error maps show that residual
+modulation reduces missed and false dynamic occupancy without turning the static
+branch into a memorized background mask.
+
+\input{latex/fig/fig12-robustness-curves}
+\input{latex/tab/tab10-efficiency}
+\subsubsection{Guidance, Suppression, and Recomposition}
+Tables~\ref{tab:static_guidance_quality}--\ref{tab:adaptive_fusion_design}
+decompose the residual recovery path into guidance, attenuation, and
+recomposition. Table~\ref{tab:static_guidance_quality} shows that static
+guidance is necessary and that its quality matters. With
+guidance disabled, the row uses the shared no-static-suppression control
+reported in Tables~\ref{tab:core_mechanism} and~\ref{tab:suppression_strength},
+giving 53.59 All and 24.43 Dyn. Noisy guidance further harms dynamic
+prediction, and learned static confidence reaches 28.97 Dyn., close to oracle
+guidance. Thus the static
+branch is not just an auxiliary supervision head; it provides a sample-adaptive
+soft explanation of persistent layout that makes residual dynamic evidence
+easier to locate.
+
+Table~\ref{tab:suppression_strength} shows that the attenuation should be
+learned rather than fixed. Fixed suppression improves Dyn. over no suppression,
+from 24.43 to 28.32, confirming that static confidence is useful as a soft mask
+for exposing residual foreground cues. However, a fixed gate cannot adapt to
+scene-dependent ambiguity and remains limited in All/Sta. In contrast,
+learnable suppression raises All/Sta. to 60.08/83.42 while also giving the best
+Dyn. among practical settings. The initialization study reinforces the same
+interpretation: both weaker ($\alpha_{\mathrm{init}}=0.25$) and stronger
+($\alpha_{\mathrm{init}}=0.75$) starting points preserve reasonable Dyn., but
+they reduce All and Sta. This indicates that the gate must balance residual
+mining and layout preservation, rather than simply maximizing foreground
+response or suppressing static features aggressively.
+
+Table~\ref{tab:adaptive_fusion_design} then verifies the final recomposition
+step. The differences are moderate rather than dominant:
+deterministic average and deterministic group-wise merging trail the default by
+1.79 and 1.33 All, respectively, showing that fixed recomposition is
+suboptimal but not catastrophic. One-input gates also lose about 1.1--1.5 All,
+while class-wise routing remains closer to the default but still weakens
+All/Sta. This pattern is consistent with adaptive fusion being an auxiliary
+recomposition design: it stabilizes the final static/dynamic routing, but the
+main improvement still comes from progressive residual reasoning.
+
+
+\input{latex/tab/tab11-distance-dynamic}
+\input{latex/tab/tab12-robustness}
+
+\subsubsection{Static Consistency}
+Table~\ref{tab:static_consistency} checks whether the static scaffold used for
+residual modulation should be regularized across samples. Removing consistency
+reduces All from 60.08 to 58.34 and Sta. from 83.42 to 80.95, and also lowers
+Dyn. from 28.97 to 28.20. In the design block, pairwise agreement is the
+default consistency form and therefore matches the static-consistency row.
+Batch-level consensus remains close but is slightly weaker at 59.81 All, 28.74
+Dyn., and 83.12 Sta., indicating that broader batch aggregation can smooth out
+sample-specific static details. The final model therefore keeps pairwise
+agreement as the default static regularizer.
+
+\subsubsection{Loss Design}
+Table~\ref{tab:loss_balance} checks whether the dynamic gain could be obtained
+by loss reweighting alone. Dynamic-heavy training gives the highest Dyn.
+(29.26), but its All and Sta. are lower than the balanced setting. Conversely,
+dynamic-light or static-heavy settings preserve more layout structure but
+weaken dynamic recovery. The balanced objective is therefore used because it
+best supports the coupled roles of the two branches: static layout explains the
+persistent scaffold, while dynamic supervision recovers sparse residual
+objects.
+
+Table~\ref{tab:loss_terms} studies the loss terms used for each supervision
+target. CE alone provides category supervision but is insufficient under the
+severe static-dynamic imbalance of roadside scenes. Semantic scaling improves
+calibration under class imbalance, and Lovasz improves region-level overlap for
+fragmented dynamic objects. The full CE+Sem.+Lovasz setting gives the strongest
+branch results, while the fusion-output block confirms that the final
+recomposed occupancy field also needs structured supervision rather than a
+single voxel-wise classification loss.
+
+\subsection{Further Analysis}
+\subsubsection{Efficiency}
+
+Table~\ref{tab:capacity_efficiency} shows that the gain is not a consequence
+of indiscriminate model scaling. In the camera-only setting, C-ProSD-Occ uses
+fewer parameters than BEVDet, BEVDepth, SparseOcc, and CONet, while achieving
+the best All and Dyn. among the listed methods. In the LiDAR-only and
+multi-modal settings, the method also remains competitive in parameter count
+while giving substantially stronger occupancy accuracy. These results match the
+contribution of the paper: \nameplus{} changes how voxel evidence is organized
+at the decision stage, rather than relying on a larger feature extractor.
+
+\subsubsection{Distance-wise Dynamic Occupancy}
+
+Table~\ref{tab:distance_robustness} evaluates where dynamic occupancy remains
+difficult after the main gains. C-ProSD obtains 29.66 Dyn. in the 0--20\,m
+range and 31.90 in the 20--40\,m range, but drops to 8.24 in the 40--60\,m
+range. Adding explicit geometry improves the far-range bin substantially:
+L-ProSD reaches 35.36/34.08/21.22 over the three distance bins, and M-ProSD
+further reaches 37.58/39.60/23.28. This trend clarifies the scope of the
+method. Progressive static-to-dynamic reasoning improves semantic organization
+across sensing regimes, but long-range dynamic occupancy remains limited by the
+available geometric evidence.
+
+\subsubsection{Robustness to Static-Background Overfitting}
+Table~\ref{tab:background_overfitting} tests a risk that is specific to
+fixed-view infrastructure perception: a model may appear strong by associating
+fixed coordinates with persistent background. We apply controlled rigid
+ego-frame perturbations at test time by translating or yaw-rotating the
+evaluation frame and applying the same re-anchoring to the sensor pose metadata
+and labels. The physical scene is unchanged, but direct coordinate-background
+shortcuts become less reliable. We therefore report dynamic mIoU after
+re-anchoring: if dynamic recovery is driven by sensor evidence rather than
+static-coordinate memorization, it should remain competitive when the static
+scaffold is no longer aligned with its original coordinates.
+
+The clean rows match the main-table plain and ProSD results. In the image-only
+setting, C-ProSD starts from a stronger clean dynamic score and keeps higher
+dynamic prediction than the plain baseline under all translation and rotation
+perturbations. The L and C+L rows show the same absolute dynamic advantage
+under most re-anchored settings, indicating that explicit geometry improves
+dynamic evidence while remaining sensitive to coordinate-frame shifts.
+\Cref{fig:robustness_c_prosd_vs_plain} makes this trade-off explicit by
+plotting \nameplus{} (C) and Plain (C) as paired absolute dynamic-mIoU curves.
+Across all tested translation and rotation shifts, the dynamic gap remains
+positive, supporting the intended interpretation of ProSD reasoning: it improves
+residual dynamic recovery from sensor evidence under controlled coordinate
+re-anchoring.

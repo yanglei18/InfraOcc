@@ -1,0 +1,260 @@
+ICLR 2027 Author Guidelines
+Similar to previous years, for ICLR 2027 we are asking authors to submit paper abstracts by the earlier abstract submission deadline of Sep 18, 2026 11:59 PM AOE or 03 weeks 04 days 04:50:24 The full paper submission deadline is Sep 25, 2026 AOE. Abstracts and papers must be submitted using the conference submission system at: https://openreview.net/group?id=ICLR.cc/2027/Conference. Please keep in mind that the deadlines are final and we cannot make any accommodations for missing the abstract deadline or paper deadline.
+ 
+
+Submission instructions
+Deadlines
+Authors must submit paper abstracts by the abstract submission deadline of Sep 18, 2026 11:59 PM AOE or . Please note that no authors can be added after the abstract submission deadline (author order can be changed after the abstract submission deadline up to the full paper deadline). Also, please make sure that all authors have an OpenReview profile with the latest information.  Abstracts submitted by the abstract submission deadline must be genuine; placeholder or duplicate abstracts will be removed.
+
+The full paper submission deadline is Sep 25, 2026 AOE. Abstracts and papers must be submitted using the conference submission system at: https://openreview.net/group?id=ICLR.cc/2027/Conference.
+
+Author order
+It is key that authors submit genuine and informative abstracts that reflect the content of the full submission, as abstracts will be used in reviewer bidding before the final paper submission deadline. Placeholder or duplicate abstracts will be removed. However, titles and abstracts may be edited before the submission deadline. Author order may be edited after the abstract deadline, but new authors cannot be added. No changes to authors are permitted after the submission deadline. No changes to title are permitted after the submission deadline until the end of the discussion period.
+
+Double-blind submission and anonymity
+ICLR 2027 is double blind, which means that all submitted papers should be anonymous. Any paper where author identity is revealed in either the main text or the supplementary material will be desk rejected. Note that related arxiv papers by the same authors do not break anonymity; if cited, these should be cited in third person.
+
+Paper formatting
+At the time of submission, the main text should be 9 pages or fewer. During the discussion/rebuttal phase and for the camera ready, the page limit will be increased to 10 pages to allow for new results/discussions. This limit will be strictly enforced. Papers with main text beyond the page limit will be desk-rejected. 
+
+The list of references does not count towards the page limit, and unlimited additional pages are allowed for the bibliography/references.  
+
+Authors may use as many pages of appendices (after the bibliography) as they wish, but reviewers are not required to read the appendix.
+
+Style files and Templates: To prepare your submission to ICLR 2027, please use the LaTeX style files provided at: https://media.iclr.cc/Conferences/ICLR2027/iclr-2027-style-files.zip
+
+Supplementary Materials
+Supplementary (text) submission: We encourage authors to submit a single file (paper + supplementary text). Supplementary text should appear after the references. Please mark the supplementary material clearly (e.g. as an appendix).
+
+Supplementary code and other supplementary materials: Source code associated with a paper can be uploaded as part of the supplementary material. Code submission gives more information to reviewers, especially for replicability of the paper. We encourage all authors to submit code as part of their submission. Note that reviewers are encouraged, but not required to review supplementary material during the review process. 
+
+Required: AI use statement
+(See the AI Policy for Authors for more details.) This section does not count toward the page limit.
+
+Recommended: Ethics statement
+All ICLR participants, including authors, are required to adhere to the ICLR Code of Ethics ( https://iclr.cc/public/CodeOfEthics ). All authors of submitted papers are required to read the Code of Ethics, adhere to it, and explicitly acknowledge this during the submission process. The Code of Ethics applies to all conference participation, including paper submission, reviewing, and paper discussion.
+
+As part of the review process, reviewers will be encouraged to raise potential violations of the ICLR Code of Ethics. If authors feel that their paper submission raises questions regarding the Code of Ethics, they are encouraged to include a paragraph of Ethics Statement (at the end of the main text before references) to address potential concerns where appropriate. Topics include, but are not limited to, studies that involve human subjects, practices to data set releases, potentially harmful insights, methodologies and applications, potential conflicts of interest and sponsorship, discrimination/bias/fairness concerns, privacy and security issues, legal compliance, and research integrity issues (e.g., IRB, documentation, research ethics). The optional ethics statement will not count toward the page limit, but should not be more than 1 page.
+
+Recommended: Reproducibility statement
+It is important that the work published in ICLR is reproducible. Authors are strongly encouraged to include a paragraph-long Reproducibility Statement at the end of the main text (before references) to discuss the efforts that have been made to ensure reproducibility. This paragraph should not itself describe details needed for reproducing the results, but rather reference the parts of the main paper, appendix, and supplemental materials that will help with reproducibility. For example, for novel models or algorithms, a link to an anonymous downloadable source code can be submitted as supplementary materials; for theoretical results, clear explanations of any assumptions and a complete proof of the claims can be included in the appendix; for any datasets used in the experiments, a complete description of the data processing steps can be provided in the supplementary materials. Each of the above are examples of things that can be referenced in the reproducibility statement. This optional reproducibility statement is not part of the main text and therefore will not count toward the page limit. 
+ 
+
+Policies
+Author Identity
+All ICLR submitters must have an OpenReview profile. If you do not have a profile already, create one as soon as possible. New profiles created without an institutional email will go through a moderation process that can take up to two weeks. New profiles created with an institutional email will be activated automatically.
+
+Authors are responsible for ensuring that their profiles are up to date to facilitate reciprocal reviewing requirements.
+
+Quotas
+No author may appear as a co-author on more than 20 papers.
+
+Each author may appear as a co-author on at most one paper in which no author is an eligible reciprocal reviewer. In plain language: if you, and all of your co-authors, have never had a paper accepted for publication in a major machine learning conference or journal, you may submit at most one paper to ICLR this year. See “Reciprocal reviewing requirement” below for the list of eligible conferences and journals. As noted there, eligibility is determined based on accepted papers as of the abstract deadline.
+
+Submissions in excess of either quota will be flagged during the abstract submission period. If they are still exceeded at the time of full paper submissions, we will randomly desk-reject excess submissions until every author is under quota.
+
+[Why these new policies? The rapid rate of growth in submissions, while exciting, has begun to strain the review system, and we believe these limits are necessary to provide a fair and informative review process to all submitters.]
+
+Reciprocal Reviewing Requirement
+Following previous conferences, there is a requirement for authors to serve as reviewers based on the number of papers they submit.
+
+All authors who are on 3 or more papers must serve as a reviewer for at least 6 papers. Authors in this category that fail to produce complete, high-quality reviews by the rebuttal stage may have their paper submissions desk rejected. Authors are exempt from the reviewing requirement if they are serving as an AC, SAC, or another organizing chair for ICLR 2027.
+
+In addition, all submissions must have at least one author who is registered to review at least 3 papers. The registered reviewer should be qualified to review, and they are qualified if they have at least one accepted publication at one of the following venues:
+
+ICLR / NeurIPS / ICML / UAI / AISTATS / JMLR / TMLR (includes "Datasets & Benchmarks")
+ACL / EMNLP / EACL / NAACL / IJCNLP-AACL / CL / TACL (includes "Findings")
+COLM
+CVPR / ICCV / ECCV / PAMI / 3DV (includes "Findings")
+AAAI / IJCAI / JAIR
+ICRA / IROS / RSS / CoRL
+KDD
+COLT
+Note that only primary conference papers satisfy the requirement; other publications associated with these conferences (including position papers, "tiny papers", blog posts, system demonstrations, industry papers, and workshop papers) do not satisfy the reciprocal reviewing requirement.
+
+Eligibiity is determined by papers accepted for publication by the abstract deadline. In particular, if your only qualifying publication is an accepted NeurIPS 2026 publication, you are not a qualified reciprocal reviewer.
+
+(If you think something should be on this list but isn’t, please contact the PCs.)
+
+If none of the authors are qualified under this definition, then they are exempt from this requirement: we encourage submissions from researchers new to ICLR! However, as described above, such submissions are capped at one per author. Eligibility will be determined based on OpenReview profiles. Incorrect information on your profile will be grounds for desk rejection.
+
+All authors will be notified to register as reviewers after the abstract deadline. If none of the authors are registered as a reviewer, it will result in desk rejection for the paper. The program chairs may grant exceptions on a case-by-case basis.
+
+Dual Submission Policy
+Submissions that are identical (or substantially similar) to versions that have been previously published, or accepted for publication, or that have been submitted in parallel to this or other conferences or journals, are not allowed and violate our dual submission policy. However, papers that cite previous related work by the authors and papers that have appeared on non-peer reviewed websites (like arXiv) or that have been presented at workshops (i.e., venues that do not have publication proceedings) do not violate the policy. The policy is enforced during the whole reviewing process period. Submission of the paper to archival repositories such as arXiv is allowed during the review period.
+
+To allow citation of papers that are under review at ICLR2027, OpenReview provides BibTeX entries that do not list the authors, but does give the title, year and url. Author names are revealed at the end of the review period.
+
+Use of AI Tools
+Please see the AI Policy for Authors.
+
+Withdrawal Policy
+Authors have the right to withdraw papers from consideration at any time until an accept or reject decision has been announced. Before the paper submission deadline, if an author withdraws the paper it will be deleted from the OpenReview hosting site. However, note that after the paper submission deadline, if an author chooses to withdraw a submission, it will remain hosted by OpenReview in a publicly visible "withdrawn papers" section. Like on arXiv, submissions to ICLR cannot be deleted or modified. Withdrawn papers will be de-anonymized immediately. Papers submitted are considered archival for scientific purposes, and cannot be deleted.
+
+Code of Conduct
+All ICLR participants, including authors, are required to adhere to the ICLR code of conduct (https://iclr.cc/public/CodeOfConduct). More detailed guidance for authors, reviewers, and all other participants will be made available in due course, and participation will require acknowledging and adhering to the provided guidelines.
+
+Code of Ethics
+All ICLR participants, including authors, are required to adhere to the ICLR Code of Ethics (https://iclr.cc/public/CodeOfEthics). All authors of submitted papers are required to read the Code of Ethics, adhere to it, and explicitly acknowledge this during the submission process. The Code of Ethics applies to all conference participation, including paper submission, reviewing, and paper discussion.
+
+Sanctioned Entities and Institutions
+Because ICLR is incorporated in the US, we are not permitted to accept submissions from entities and individuals that are subject to US sanctions. A complete list may be found here https://sanctionslist.ofac.treas.gov/Home/SdnList. Submissions discovered to be affiliated with entities on this list will be desk-rejected. 
+
+Reviewing Process
+Double blind reviewing: Submissions will be double blind: reviewers cannot see author names when conducting reviews, and authors cannot see reviewer names. Having papers on arxiv is allowed per the dual submission policy outlined above.  
+
+Reviewing Timeline:
+Sep 25 AOE: Deadline for paper submissions. Submissions to ICLR are uploaded on OpenReview. Submissions can be edited on OpenReview until the submission deadline, following which edits are not allowed till the release of the reviews.
+
+Nov 05: Reviews released. Official reviews are anonymous and publicly visible in OpenReview. 
+
+Nov 05 – Nov 18: Public discussion period. Once reviews have been posted, authors can post responses to the reviews as comments on OpenReview Authors can also revise their paper until the end of the public discussion period (Nov 18). If such a revision is made, a pdfdiff will be applied to compare new changes to the paper against the original submission. Area chairs and reviewers reserve the right to ignore changes that are significantly different from the original paper. In addition, during this period, any submission that is cited will be given an anonymous BibTex entry.
+
+OpenReview will allow for public discussion any time during the discussion phase. Anybody who is logged in can post comments that are publicly visible, or restrict visibility to reviewers and up, ACs and up, or just PCs. All comments apart from those of the authors, reviewers, ACs or the organizing committee will be required to be non-anonymous. 
+
+Nov 19 – Dec 16: Private discussion among the reviewers and ACs. After the end of the public discussion there will be an internal discussion period amongst reviewers and ACs with the aim of summarizing the review process, after which acceptance decisions are made. 
+
+Dec 16: Decision notification. Acceptance decisions will be made and authors notified on Dec 16. Papers that are not accepted will be considered non-archival, and may be submitted elsewhere (modified or not), although the OpenReview site will maintain the reviews, the comments, and links to the versions submitted to ICLR. All submitted papers (accepted, rejected or withdrawn) will be deanonymized after the notification. The submissions and reviews will be released to the public.  
+
+Note: Authors who encounter potential violations of the Code of Ethics, e.g., as part of the review or public discussion, should raise these issues in a private message to their papers' Area Chair through the open review interface.
+
+Camera-ready Submissions
+An email with instructions for uploading camera-ready submissions will go out mid-February 2027.
+
+Page limit is identical with the submission version (10 pages)
+Similarly, ethics statements and acknowledgement etc. do not count for page limit.
+ 
+Frequently Asked Questions
+FAQ Re: submission
+Q. I could not upload the paper by the deadline because of <reason>. Can I upload now?
+
+No.  Unfortunately, no edits to the submission can be made after the submission deadline, no matter how small. We cannot make individual edits. Please do not email us for this.
+
+Q. I uploaded the wrong version and now the submission deadline has passed. Can you please update the paper / allow us to upload a new version?
+
+No. Unfortunately, no edits to the paper can be made after the submission deadline, no matter how small. We cannot make individual edits. Please do not email us for this.
+
+Q. How do I submit the abstract?
+
+In openreview page, you will see that only "Abstract*" section is mandatory (indicated by "*") and not "PDF" section. To submit an abstract, you can enter text in "Abstract" section. You can upload the full paper in "PDF" section anytime before the deadline.
+
+Q. Do I need an OpenReview account to submit the paper?
+
+Yes. And so do all your co-authors. Please ensure this before the submission deadline; we cannot make an exception (for fairness) if you failed to submit by the abstract deadline.
+
+Q. Some authors did not have OR accounts by the abstract deadline. Will my paper get desk-rejected? 
+
+No. As long as ALL authors have OR account before the full paper deadline, the paper will not be desk-rejected.
+
+Q. How to check that all authors have an OR account?
+
+If you click any of the names in the Authors field, it will bring you to the profile of that author, if one exists. Otherwise, they will see a page alerting them that there is no profile linked to that email.
+
+Q. How do I fix the issue of OR accounts? I can’t remove and add an author.
+
+The author can create an OpenReview profile and confirm the email address used in submission. Once this is done, the submission will be correctly linked to their profile.
+
+Q. I have an OR account, but I submitted the work with a different email address. 
+
+This is fixable: you just need to edit their profile, add the email and click on "Confirm". You will receive an email to verify they own the email account. After the confirmation, the email will be automatically linked to the profile and the submission.
+
+Q: Can I add or make changes on authors after the abstract submission deadline?
+
+No. You cannot add or remove authors after the abstract submission deadline: we make no exceptions whatsoever, so please don't send an email (we get a lot of these emails, sometimes the same question multiple times from the same people). 
+
+Note that the order of authors can be changed if the contribution among the authors changes but this is allowed only until the submission deadline. Please coordinate among the authors and make sure that everyone has an OpenReview profile before the abstract submission deadline.
+
+Q: Can I add or make changes in the paper title after the abstract submission deadline?
+
+Yes, titles can be edited up to the paper submission deadline.
+
+Q: When is the submission deadline for supplementary materials?
+
+The deadline is the same for the full paper and for the supplementary materials.
+
+Q: Should the appendices be added as a separate PDF or in the same PDF as the main paper? 
+
+Either is allowed: you can include the appendices at the end of the main pdf after the references, or you can include it as a separate file for the supplementary materials.
+
+Q: How can we make our code available for reviewing anonymously?
+
+You can share your code in three ways:
+
+Anonymize your code, put it in a .zip file and submit it as supplementary materials.
+
+Make an anonymous repository and put the link in your paper. The above methods will make your code public, along with your paper and reviews/comments for the paper.
+
+After we open the discussion forums for all submitted papers, make a comment directed to the reviewers and area chairs and put a link to an anonymous repository. This method will let you keep your code visible only to the reviewers and ACs for your paper.
+
+Q: Can I submit a link for demonstration (for example, including a video)?
+
+Yes, such a link can be submitted as long as it is completely anonymous. Also, make sure that the host website does not track visitors because such information can reveal the identity of the reviewer. If your link is found to have such issues, it will put your submission at the risk of rejection.
+
+Q: I can't modify my submission to include the PDF and supplementary materials. Can you help? 
+
+Make sure you logged in using the same account you used to upload the submission. If so, you should be able to click on your submission and see a "Revision" button.
+
+If you are still having problems accessing your submission, follow these steps:
+
+Go to your submission and hover over your name in the Authors field.
+If your name is associated with an email address that is not currently on your profile, add this email address to your OpenReview profile and confirm it. This will give you access to your submission and the Revision button.
+If your name is associated with another profile that is not the profile you submitted the paper with, contact the OpenReview team at info@openreview.net so they can merge your profiles.
+If you are still having trouble, please contact OpenReview technical support at info@openreview.net and explain the situation.
+Q: Can you explain how to treat de-anonymization in the case where a submitted paper refers to a challenge they won which can identify the authors? 
+
+It is ok to report the results on the leaderboard of a challenge. The authors can include the ranking and the name of the challenge. The reviewers will be advised to not intentionally search the authors by examining the leaderboard.
+
+Q: Can I submit an abstract to serve as a placeholder so that I can fill in the details of my submission after the abstract deadline? 
+
+No. All placeholder abstract submissions will be deleted.
+
+Q: We recently submitted paper A on arxiv. Now we are submitting a follow up work B to ICLR. Should we cite paper A in our submission B? If so, how should I cite the work without violating the double-blind process? 
+
+Yes, authors should provide the citations to all related work, including paper A. When referring to paper A, please use a 3rd person narrative.
+
+Q. I have a nearly identical version on arxiv. Does this violate the anonymity policy? 
+
+No, so long as you do not refer to it explicitly.
+
+Q: If my submission does not have any ethics issues to the best of our knowledge, do I still need to include an Ethics Statement? 
+
+No, there is no need to include an Ethics Statement for all submissions. Submissions with potential ethics issues (such as study involving human subjects, dataset with sensitive information, etc) should consider including an ethics statement.
+
+Q. Is the acknowledgement section included in the page limit?
+
+No.
+
+Q: I have a paper under review at NeurIPS, which notifies submitters about acceptances after the ICLR abstract deadline. May I submit an ICLR abstract and withdraw if my paper is accepted to NeurIPS?
+
+Yes, this is allowed. (We will only do duplicate-submission checks for full submissions.)
+
+FAQ During Discussion Stages
+Q. Can we make changes to the title and abstract for the full paper submission?
+
+It is ok to revise the title and abstract for your full paper submission so long as the revised version stays close to your original abstract submission; The revised version shouldn’t read like a different paper compared to your original abstract submission. If so, the paper will be rejected.
+
+Q. Can we change the title of a paper during the rebuttal?
+
+Yes, you can change the title, abstract, and the paper’s content, including supplementary materials. But make sure any modifications are clearly communicated to the reviewers and the area chair, so that they can efficiently review the modified version of your paper. The set of authors cannot be changed, but the order can be changed.
+
+Q. For rebuttal revisions, how many pages are allowed?
+
+The page limit is identical with the submission version (10 pages).
+
+Q. For rebuttal revisions, are we limited to one upload or can we update the paper several times? 
+
+You can upload revisions until the discussion period ends, but reviewers and area chairs are not required to look at every revision. It is up to you to clearly communicate whats been changed.
+
+Q. Is there a limit on the number of comments we can post? Can we post multiple replies to each reviewer? 
+
+There is a word limit for each comment, but there is no limit on the number of comments . You may post multiple replies to each reviewer, but please remain civil and considerate of the reviewers time, as they are reviewing and thus engaging in discussions for multiple papers for ICLR. Compared to other conferences in the field, the open nature of the discussion phases allows more interaction among the authors and reviewers. Please see previous versions of ICLR OpenReview to get a sense of the interactions.
+
+Q. How do we contact the Reviewers, Area Chairs, and Program Chairs?
+
+If you have important private comments to the area chair and/or reviewers of your paper, please communicate through the OpenReview forum for that submission and choose Area Chairs of the submission and/or "Reviewers of the submission" from the dropdown menu of the Readers.
+
+Your first point of contact in case of questions is the Area Chair assigned to your submission. In cases that cannot be resolved together with the Area Chair, please contact the Program Chairs through email. Prefix your title as [Authors-to-PCs].
+
+Q. If I have an accepted paper, do I have to register?
+
+Yes, if you have an accepted paper, one of the authors of your paper must have a "Conference and Workshops" registration. If the author is a student they only need a student registration. If an author has multiple papers they only need one registration. 

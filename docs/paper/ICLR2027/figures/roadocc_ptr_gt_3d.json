@@ -1,0 +1,33 @@
+{
+  "dataset_index": 4711,
+  "token": "aafb051d-8810-426c-ae1b-7e66cf5c52a2",
+  "current_occupancy": "/home/bxk/CODE-A6000-PhD-3/Occ-V2X-Real/data/v2xreal_nuscenes/gts/2023-04-05-14-34-45_8_0_sub0/aafb051d-8810-426c-ae1b-7e66cf5c52a2/labels.npz",
+  "previous_occupancy": "/home/bxk/CODE-A6000-PhD-3/Occ-V2X-Real/data/v2xreal_nuscenes/gts/2023-04-05-14-34-45_8_0_sub0/7e7c58cc-327a-4f0c-9957-1ff41ee5a92d/labels.npz",
+  "flow_target": "/home/bxk/CODE-A6000-PhD-3/Occ-V2X-Real/data/v2xreal_nuscenes/occflow_gts/2023-04-05-14-34-45_8_0_sub0/aafb051d-8810-426c-ae1b-7e66cf5c52a2/labels.npz",
+  "target_definition": {
+    "frame_dt_seconds": 0.5,
+    "flow_epsilon_mps": 0.001,
+    "correspondence_radius_voxels": 1
+  },
+  "route_counts": {
+    "persist": 3271,
+    "transport": 3733,
+    "refresh": 319
+  },
+  "route_percent": {
+    "persist": 44.667486003004235,
+    "transport": 50.97637580226683,
+    "refresh": 4.356138194728937
+  },
+  "dynamic_voxels": 7323,
+  "static_surface_voxels": 131035,
+  "static_alpha": 0.42,
+  "camera": {
+    "width": 1200,
+    "height": 760,
+    "fov_degrees": 31.0,
+    "azimuth_degrees": -132.0,
+    "elevation_degrees": 36.0
+  },
+  "output": "docs/paper/ICLR2027/figures/roadocc_ptr_gt_3d.png"
+}
