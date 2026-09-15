@@ -1,0 +1,8 @@
+{
+  "fps": 5.2792,
+  "latency_ms": 189.421,
+  "num_profile_iters": 20,
+  "occupancy_head_params_m": 0.7484,
+  "prior_branch_params_m": 0.0,
+  "total_params_m": 87.0248
+}

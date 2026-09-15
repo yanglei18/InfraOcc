@@ -1,0 +1,15 @@
+{
+  "checkpoint": null,
+  "config": "projects/STCOcc/configs/stcocc_c_4x4_24e_main_singleframe.py",
+  "fps": 5.8692,
+  "gpu_id": 0,
+  "latency_ms": 170.3814,
+  "num_profile_iters": 30,
+  "requested_profile_iters": 30,
+  "runner_type": "StandardEpochBasedRunner",
+  "samples_per_gpu": 1,
+  "split": "test",
+  "total_params_m": 58.7476,
+  "visible_cuda_devices": "4",
+  "warmup_iters": 10
+}

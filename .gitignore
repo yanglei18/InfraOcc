@@ -1,0 +1,104 @@
+# Python cache / bytecode
+__pycache__/
+*.py[cod]
+*$py.class
+*.pyc
+*.pyo
+
+# C/C++/CUDA build artifacts
+build/
+dist/
+*.so
+*.dylib
+*.dll
+*.o
+*.a
+*.exp
+*.lib
+
+# PyTorch / JIT / extensions
+.cache/
+*.torch
+torch_extensions/
+
+# Packaging
+*.egg-info/
+.eggs/
+pip-wheel-metadata/
+
+# Virtual environments
+.venv/
+venv/
+env/
+.conda/
+
+# Test / coverage / tooling
+.pytest_cache/
+.mypy_cache/
+.ruff_cache/
+.coverage
+.coverage.*
+coverage.xml
+htmlcov/
+
+# IDE / editor
+.vscode/
+.idea/
+*.swp
+*.swo
+*.sublime-*
+
+# OS
+.DS_Store
+Thumbs.db
+ehthumbs.db
+
+# Logs and runtime outputs
+*.log
+*.out
+logs/
+
+# Experiment / training
+wandb/
+runs/
+events.out.tfevents.*
+*.tfevents.*
+
+# Jupyter
+.ipynb_checkpoints/
+*.ipynb_checkpoints
+
+# Project runtime artifacts
+.dist_test/
+work_dirs
+work_dirs/*
+*.pth
+
+# Dataset / generated metadata (local only)
+*.pkl
+*.png
+# README artwork exported from the InfraOcc paper is part of the public docs.
+!docs/assets/infraocc/*.png
+# ICLR paper figures are source assets required to compile the manuscript.
+!docs/paper/ICLR2027/Fig4-comparison.png
+!docs/paper/ICLR2027/Fig5-backwarp.png
+!docs/paper/ICLR2027/Fig6-ptrcontrol.png
+!docs/paper/ICLR2027/supplementary/Fig1-sensor-setup.png
+!docs/paper/ICLR2027/supplementary/Fig2-comparison.png
+!docs/paper/ICLR2027/supplementary/Fig3-occ3d-comparison.png
+!docs/paper/ICLR2027/supplementary/Fig4-recursive.png
+!docs/paper/ICLR2027/supplementary/Fig5-ptrnative.png
+*.mp4
+
+mmdet3d/.mim/tools
+mmcv_src/
+# External reference repositories kept locally but not tracked here
+docs/assets/code
+
+# Local large-artifact links
+work_dirs/
+projects/
+data/
+docs/assets/paper/
+docs/guidance
+docs/paper

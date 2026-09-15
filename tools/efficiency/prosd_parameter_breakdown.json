@@ -1,0 +1,38 @@
+[
+  {
+    "config": "projects/InfraOcc/configs/ablation/core_chain/infraocc_c_4x4_24e_plain.py",
+    "encoder3d_m": 25.4482,
+    "img_backbone_m": 23.508,
+    "img_neck_m": 1.377,
+    "label": "Plain",
+    "latency_ms": 129.8,
+    "occ_prior_head_m": 0.354,
+    "stage_decoder_m": 1.0107,
+    "total_params_m": 57.3988,
+    "view_transform_m": 5.6944
+  },
+  {
+    "config": "projects/InfraOcc/configs/ablation/core_chain/infraocc_c_4x4_24e_prosd_no_supp_no_raw_bypass.py",
+    "encoder3d_m": 25.4482,
+    "img_backbone_m": 23.508,
+    "img_neck_m": 1.377,
+    "label": "Parallel S2D",
+    "latency_ms": 181.12,
+    "occ_prior_head_m": 2.6717,
+    "stage_decoder_m": 1.0107,
+    "total_params_m": 59.7165,
+    "view_transform_m": 5.6944
+  },
+  {
+    "config": "projects/InfraOcc/configs/ablation/core_chain/infraocc_c_4x4_24e_prosd_full.py",
+    "encoder3d_m": 25.4482,
+    "img_backbone_m": 23.508,
+    "img_neck_m": 1.377,
+    "label": "Progressive S2D",
+    "latency_ms": 225.36,
+    "occ_prior_head_m": 2.6782,
+    "stage_decoder_m": 1.0107,
+    "total_params_m": 59.723,
+    "view_transform_m": 5.6944
+  }
+]

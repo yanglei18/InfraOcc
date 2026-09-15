@@ -1,0 +1,90 @@
+{
+  "core_chain/infraocc_c_4x4_24e_plain.py": {
+    "gIoU": 84.93,
+    "log_path": "/home/bxk/CODE-pro6000-PhD-3/Occ-V2X-Real/work_dirs/infraocc_ablation/core_chain/infraocc_c_4x4_24e_plain/20260602_153342.log",
+    "mIoU": 57.11,
+    "mean_dynamic": 27.53,
+    "mean_static": 79.3,
+    "work_dir": "/home/bxk/CODE-pro6000-PhD-3/Occ-V2X-Real/work_dirs/infraocc_ablation/core_chain/infraocc_c_4x4_24e_plain"
+  },
+  "core_chain/infraocc_c_4x4_24e_prosd_no_raw_bypass.py": {
+    "gIoU": 91.03,
+    "log_path": "/home/bxk/CODE-pro6000-PhD-3/Occ-V2X-Real/work_dirs/infraocc_ablation/core_chain/infraocc_c_4x4_24e_prosd_no_raw_bypass/20260602_085836.log",
+    "mIoU": 62.33,
+    "mean_dynamic": 29.91,
+    "mean_static": 86.65,
+    "work_dir": "/home/bxk/CODE-pro6000-PhD-3/Occ-V2X-Real/work_dirs/infraocc_ablation/core_chain/infraocc_c_4x4_24e_prosd_no_raw_bypass"
+  },
+  "core_chain/infraocc_c_4x4_24e_prosd_no_static_consistency.py": {
+    "gIoU": 87.91,
+    "log_path": "/home/bxk/CODE-pro6000-PhD-3/Occ-V2X-Real/work_dirs/infraocc_c_4x4_24e_prosd_no_static_consistency/20260602_160022.log",
+    "mIoU": 59.99,
+    "mean_dynamic": 29.22,
+    "mean_static": 83.08,
+    "work_dir": "/home/bxk/CODE-pro6000-PhD-3/Occ-V2X-Real/work_dirs/infraocc_c_4x4_24e_prosd_no_static_consistency"
+  },
+  "core_chain/infraocc_c_4x4_24e_prosd_no_supp_no_raw_bypass.py": {
+    "gIoU": 87.97,
+    "log_path": "/home/bxk/CODE-pro6000-PhD-3/Occ-V2X-Real/work_dirs/infraocc_ablation/core_chain/infraocc_c_4x4_24e_prosd_no_supp_no_raw_bypass/20260602_184849.log",
+    "mIoU": 59.48,
+    "mean_dynamic": 27.79,
+    "mean_static": 83.25,
+    "work_dir": "/home/bxk/CODE-pro6000-PhD-3/Occ-V2X-Real/work_dirs/infraocc_ablation/core_chain/infraocc_c_4x4_24e_prosd_no_supp_no_raw_bypass"
+  },
+  "core_chain/infraocc_c_4x4_24e_prosd_no_suppression.py": {
+    "gIoU": 87.83,
+    "log_path": "/home/bxk/CODE-pro6000-PhD-3/Occ-V2X-Real/work_dirs/infraocc_ablation/core_chain/infraocc_c_4x4_24e_prosd_no_suppression/20260603_150142.log",
+    "mIoU": 59.82,
+    "mean_dynamic": 29.25,
+    "mean_static": 82.75,
+    "work_dir": "/home/bxk/CODE-pro6000-PhD-3/Occ-V2X-Real/work_dirs/infraocc_ablation/core_chain/infraocc_c_4x4_24e_prosd_no_suppression"
+  },
+  "fusion/infraocc_c_4x4_24e_prosd_fusion_conf_only.py": {
+    "gIoU": 84.75,
+    "log_path": "/home/bxk/CODE-pro6000-PhD-3/Occ-V2X-Real/work_dirs/infraocc_ablation/core_chain/infraocc_c_4x4_24e_prosd_fusion_conf_only/20260606_064823.log",
+    "mIoU": 57.03,
+    "mean_dynamic": 27.58,
+    "mean_static": 79.11,
+    "work_dir": "/home/bxk/CODE-pro6000-PhD-3/Occ-V2X-Real/work_dirs/infraocc_ablation/core_chain/infraocc_c_4x4_24e_prosd_fusion_conf_only"
+  },
+  "fusion/infraocc_c_4x4_24e_prosd_fusion_det_average.py": {
+    "gIoU": 82.88,
+    "log_path": "/home/bxk/CODE-pro6000-PhD-3/Occ-V2X-Real/work_dirs/infraocc_ablation/core_chain/infraocc_c_4x4_24e_prosd_fusion_det_average/20260605_211059.log",
+    "mIoU": 56.75,
+    "mean_dynamic": 28.79,
+    "mean_static": 77.72,
+    "work_dir": "/home/bxk/CODE-pro6000-PhD-3/Occ-V2X-Real/work_dirs/infraocc_ablation/core_chain/infraocc_c_4x4_24e_prosd_fusion_det_average"
+  },
+  "fusion/infraocc_c_4x4_24e_prosd_fusion_det_groupwise.py": {
+    "gIoU": 82.84,
+    "log_path": "/home/bxk/CODE-pro6000-PhD-3/Occ-V2X-Real/work_dirs/infraocc_ablation/core_chain/infraocc_c_4x4_24e_prosd_fusion_det_groupwise/20260606_014749.log",
+    "mIoU": 57.33,
+    "mean_dynamic": 29.75,
+    "mean_static": 78.01,
+    "work_dir": "/home/bxk/CODE-pro6000-PhD-3/Occ-V2X-Real/work_dirs/infraocc_ablation/core_chain/infraocc_c_4x4_24e_prosd_fusion_det_groupwise"
+  },
+  "progressive/infraocc_c_4x4_24e_prosd_supp_fixed_alpha050.py": {
+    "gIoU": 84.75,
+    "log_path": "/home/bxk/CODE-pro6000-PhD-3/Occ-V2X-Real/work_dirs/infraocc_ablation/02_suppression_strength/fixed_alpha050/20260605_002146.log",
+    "mIoU": 56.88,
+    "mean_dynamic": 28.53,
+    "mean_static": 78.14,
+    "work_dir": "/home/bxk/CODE-pro6000-PhD-3/Occ-V2X-Real/work_dirs/infraocc_ablation/02_suppression_strength/fixed_alpha050"
+  },
+  "progressive/infraocc_c_4x4_24e_prosd_supp_learnable_alpha025.py": {
+    "gIoU": 84.67,
+    "log_path": "/home/bxk/CODE-pro6000-PhD-3/Occ-V2X-Real/work_dirs/infraocc_ablation/02_suppression_strength/learnable_alpha025/20260605_062219.log",
+    "mIoU": 57.06,
+    "mean_dynamic": 27.65,
+    "mean_static": 79.12,
+    "work_dir": "/home/bxk/CODE-pro6000-PhD-3/Occ-V2X-Real/work_dirs/infraocc_ablation/02_suppression_strength/learnable_alpha025"
+  },
+  "progressive/infraocc_c_4x4_24e_prosd_supp_learnable_alpha075.py": {
+    "gIoU": 84.81,
+    "log_path": "/home/bxk/CODE-pro6000-PhD-3/Occ-V2X-Real/work_dirs/infraocc_ablation/02_suppression_strength/learnable_alpha075/20260605_113306.log",
+    "mIoU": 56.07,
+    "mean_dynamic": 27.67,
+    "mean_static": 77.37,
+    "work_dir": "/home/bxk/CODE-pro6000-PhD-3/Occ-V2X-Real/work_dirs/infraocc_ablation/02_suppression_strength/learnable_alpha075"
+  }
+}
