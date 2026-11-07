@@ -51,8 +51,8 @@ except ImportError:
 def parse_args():
     parser = argparse.ArgumentParser(
         description='MMDet test (and eval) a model')
-    parser.add_argument('--config', type=str, default="projects/RoadOcc/configs/roadocc_m_4x4_24e.py", help='test config file path')
-    parser.add_argument('--checkpoint', type=str, default="work_dirs/roadocc_m_4x4_24e/epoch_6.pth", help='checkpoint file')
+    parser.add_argument('--config', type=str, default="projects/ProSDOcc/configs/infraocc_c_4x4_36e_prosd.py", help='test config file path')
+    parser.add_argument('--checkpoint', type=str, default="projects/ProSDOcc/ckpt_final/c_prosd.pth", help='checkpoint file')
     parser.add_argument(
         '--out',
         type=str,
@@ -210,7 +210,7 @@ def _maybe_adjust_dist_backend(args, cfg):
     if 'dist_params' not in cfg:
         cfg.dist_params = dict(backend='nccl')
 
-    backend_override = os.environ.get('OCC_V2X_DIST_BACKEND', '').strip().lower()
+    backend_override = os.environ.get('INFRAOCC_DIST_BACKEND', '').strip().lower()
     want_gloo = cfg.get('use_gloo_dist', False) or backend_override == 'gloo'
     force_nccl = cfg.get('force_nccl_dist', False) or backend_override == 'nccl'
     if (not want_gloo and not force_nccl
@@ -222,7 +222,7 @@ def _maybe_adjust_dist_backend(args, cfg):
                 'Auto-switching distributed backend to GLOO on compute '
                 f'capability {major}.{minor} GPUs because NCCL reproduces '
                 'illegal memory access on this stack. Set '
-                'OCC_V2X_DIST_BACKEND=nccl or force_nccl_dist=True to force '
+                'INFRAOCC_DIST_BACKEND=nccl or force_nccl_dist=True to force '
                 'NCCL.',
                 UserWarning)
             return
@@ -231,7 +231,7 @@ def _maybe_adjust_dist_backend(args, cfg):
         cfg.dist_params['backend'] = 'gloo'
         warnings.warn(
             'Distributed backend is GLOO (use_gloo_dist=True or '
-            'OCC_V2X_DIST_BACKEND=gloo).',
+            'INFRAOCC_DIST_BACKEND=gloo).',
             UserWarning)
 
 

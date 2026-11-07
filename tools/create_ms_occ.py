@@ -10,13 +10,13 @@ def parse_args():
     parser.add_argument(
         '--dataset',
         type=str,
-        default='v2xreal',
-        choices=['v2xreal', 'occ3d', 'openocc'],
+        default='infraocc',
+        choices=['infraocc', 'occ3d', 'openocc'],
         help='dataset label layout')
     parser.add_argument(
         '--pkl_path',
         type=str,
-        default='data/v2xreal_nuscenes/v2xreal_infos_val.pkl',
+        default='data/infraocc/infraocc_infos_val.pkl',
         help='path to the pkl file')
     parser.add_argument(
         '--empty-cls-idx',
@@ -35,7 +35,7 @@ def resolve_empty_cls_idx(dataset, empty_cls_idx=None):
     if empty_cls_idx is not None:
         return int(empty_cls_idx)
     dataset_empty_cls_idx = {
-        'v2xreal': 17,
+        'infraocc': 17,
         'occ3d': 17,
         'openocc': 16,
     }

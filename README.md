@@ -10,7 +10,7 @@
     <a href="https://github.com/yanglei18/InfraOcc">Code</a> |
     <a href="docs/guidance/Install_cu128.md">Installation</a> |
     <a href="docs/guidance/dataset.md">Dataset Preparation</a> |
-    <a href="projects/InfraOcc/configs/main_table/README.md">Training & Evaluation</a>
+    <a href="docs/guidance/train_and_eval.md">Training & Evaluation</a>
   </p>
 </div>
 
@@ -187,40 +187,40 @@ Generate the static occupancy prior required by the released ProSD-Occ
 configurations:
 
 ```bash
-python projects/InfraOcc/preprocess/static_occ_generation.py \
-  --pkl-path data/infraocc_nuscenes/infraocc_infos_train.pkl
+python projects/ProSDOcc/preprocess/static_occ_generation.py \
+  --pkl-path data/infraocc/infraocc_infos_train.pkl
 ```
 
 ### 3. 🧩 Released Configurations and Checkpoints
 
 | Input setting | Configuration | Checkpoint |
 | --- | --- | --- |
-| Camera-only | [infraocc_c_4x4_36e_prosd.py](projects/InfraOcc/configs/main_table/infraocc_c_4x4_36e_prosd.py) | [c_prosd.pth](projects/InfraOcc/checkpoints_update/c_prosd.pth) |
-| LiDAR-only | [infraocc_l_4x4_36e_prosd.py](projects/InfraOcc/configs/main_table/infraocc_l_4x4_36e_prosd.py) | [l_prosd.pth](projects/InfraOcc/checkpoints_update/l_prosd.pth) |
-| Camera + LiDAR | [infraocc_m_4x4_36e_prosd.py](projects/InfraOcc/configs/main_table/infraocc_m_4x4_36e_prosd.py) | [m_prosd.pth](projects/InfraOcc/checkpoints_update/m_prosd.pth) |
+| Camera-only | [infraocc_c_4x4_36e_prosd.py](projects/ProSDOcc/configs/infraocc_c_4x4_36e_prosd.py) | [c_prosd.pth](projects/ProSDOcc/ckpt_final/c_prosd.pth) |
+| LiDAR-only | [infraocc_l_4x4_36e_prosd.py](projects/ProSDOcc/configs/infraocc_l_4x4_36e_prosd.py) | [l_prosd.pth](projects/ProSDOcc/ckpt_final/l_prosd.pth) |
+| Camera + LiDAR | [infraocc_m_4x4_36e_prosd.py](projects/ProSDOcc/configs/infraocc_m_4x4_36e_prosd.py) | [m_prosd.pth](projects/ProSDOcc/ckpt_final/m_prosd.pth) |
 
 ### 4. 🚀 Training
 
 The following example trains the camera-only model with four GPUs:
 
 ```bash
-bash projects/InfraOcc/configs/main_table/dist_train.sh \
-  projects/InfraOcc/configs/main_table/infraocc_c_4x4_36e_prosd.py \
+bash projects/ProSDOcc/configs/dist_train.sh \
+  projects/ProSDOcc/configs/infraocc_c_4x4_36e_prosd.py \
   4 \
   --work-dir work_dirs/infraocc_main_table/c_prosd_occ_4x4_36e
 ```
 
 Replace the configuration and work directory with the corresponding LiDAR-only
 or multi-modal entry to train another track. See the
-[main-table configuration guide](projects/InfraOcc/configs/main_table/README.md)
-for all recommended commands.
+[training and evaluation guide](docs/guidance/train_and_eval.md) for all
+recommended commands.
 
 ### 5. 🔍 Evaluation
 
 ```bash
 bash tools/dist_test.sh \
-  projects/InfraOcc/configs/main_table/infraocc_c_4x4_36e_prosd.py \
-  projects/InfraOcc/checkpoints_update/c_prosd.pth \
+  projects/ProSDOcc/configs/infraocc_c_4x4_36e_prosd.py \
+  projects/ProSDOcc/ckpt_final/c_prosd.pth \
   4
 ```
 

@@ -4,7 +4,7 @@ import torch.nn as nn
 from mmdet3d.models.builder import VOXEL_ENCODERS
 
 
-@VOXEL_ENCODERS.register_module(name='RoadOccSimpleMeanVFE')
+@VOXEL_ENCODERS.register_module(name='InfraOccSimpleMeanVFE')
 @VOXEL_ENCODERS.register_module()
 class SimpleMeanVFE(nn.Module):
     def __init__(self, num_features):

@@ -12,7 +12,7 @@ class TorchProfilerHook(Hook):
     """Capture a bounded CPU/CUDA trace without changing training semantics.
 
     The hook is only injected by ``tools/train.py`` when the explicit
-    ``STCROADOCC_PROFILE_TRAIN`` environment flag is set. It deliberately
+    ``INFRAOCC_PROFILE_TRAIN`` environment flag is set. It deliberately
     neither changes a config value nor stops the runner; callers may interrupt
     training once the report has been written.
     """
@@ -75,19 +75,19 @@ class TorchProfilerHook(Hook):
     def _install_scopes(self, runner):
         model = getattr(runner.model, 'module', runner.model)
         for name, label in (
-                ('forward_train', 'STCRoadOcc/forward_train'),
-                ('obtain_voxel_feats', 'STCRoadOcc/obtain_voxel_feats'),
-                ('run_stage_decoder', 'STCRoadOcc/stage_decoders'),
+                ('forward_train', 'InfraOcc/forward_train'),
+                ('obtain_voxel_feats', 'InfraOcc/obtain_voxel_feats'),
+                ('run_stage_decoder', 'InfraOcc/stage_decoders'),
                 ('_forward_occupancy_with_detection',
-                 'STCRoadOcc/occupancy_and_detection'),
-                ('_build_training_losses', 'STCRoadOcc/training_losses')):
+                 'InfraOcc/occupancy_and_detection'),
+                ('_build_training_losses', 'InfraOcc/training_losses')):
             self._profile_method(model, name, label)
         if getattr(model, 'forward_projection', None) is not None:
             self._profile_method(model.forward_projection, 'extract_img_feat',
-                                 'STCRoadOcc/image_to_bev')
+                                 'InfraOcc/image_to_bev')
         if getattr(model, 'flow_head', None) is not None:
             self._profile_method(model.flow_head, 'forward',
-                                 'STCRoadOcc/flow_head')
+                                 'InfraOcc/flow_head')
 
     def _write_report(self, runner):
         if self._written or self._profiler is None:

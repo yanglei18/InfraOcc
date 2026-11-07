@@ -91,9 +91,9 @@ class SparseLiDARVoxelEncoder(nn.Module):
         )
         self.conv_body = spconv.SparseSequential(
             _SparseBasicBlock(
-                base_channel, base_channel, norm_cfg=norm_cfg, indice_key='roadocc_res'),
+                base_channel, base_channel, norm_cfg=norm_cfg, indice_key='infraocc_res'),
             _SparseBasicBlock(
-                base_channel, base_channel, norm_cfg=norm_cfg, indice_key='roadocc_res'),
+                base_channel, base_channel, norm_cfg=norm_cfg, indice_key='infraocc_res'),
         )
         self.conv_out = _post_act_block(
             base_channel,
@@ -101,7 +101,7 @@ class SparseLiDARVoxelEncoder(nn.Module):
             kernel_size=3,
             padding=1,
             norm_cfg=norm_cfg,
-            indice_key='roadocc_out')
+            indice_key='infraocc_out')
 
     def forward(self, voxel_features, coors, batch_size):
         input_sp_tensor = spconv.SparseConvTensor(
@@ -119,7 +119,7 @@ class SparseLiDARVoxelEncoder(nn.Module):
 class SparseLiDAREnc8x(nn.Module):
     """OpenOcc-style sparse LiDAR encoder with 8x spatial downsampling.
 
-    This keeps the downstream interface compatible with the existing RoadOcc
+    This keeps the downstream interface compatible with the existing InfraOcc
     and V2XOcc decoders by returning the dense tensor under the ``x`` key.
     """
 

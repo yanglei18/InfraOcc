@@ -1,4 +1,4 @@
-"""Shared occupancy-flow dataset pipeline components for RoadOcc-style experiments."""
+"""Shared occupancy-flow dataset pipeline components for InfraOcc experiments."""
 
 import os
 
@@ -237,7 +237,7 @@ class MultiFramePointsFromFiles(LoadPointsFromFile):
 
 @PIPELINES.register_module()
 class LoadMultiFramePointsFromFiles(MultiFramePointsFromFiles):
-    """Compatibility alias used by RoadOcc configs."""
+    """Compatibility alias used by InfraOcc configs."""
 
 
 @PIPELINES.register_module()
@@ -324,7 +324,7 @@ class PreparePointsForOcc(object):
 
 @PIPELINES.register_module()
 class ALOccImageInputAdapter:
-    """Expose RoadOcc camera tensors through ALOcc's original input contract."""
+    """Expose InfraOcc camera tensors through ALOcc's original input contract."""
 
     def __init__(self, num_cams, strict_current_frame=False):
         self.num_cams = int(num_cams)
@@ -333,7 +333,7 @@ class ALOccImageInputAdapter:
     def __call__(self, results):
         raw_inputs = results['img_inputs']
         if len(raw_inputs) != 6:
-            raise ValueError('ALOccImageInputAdapter expects RoadOcc inputs with BDA.')
+            raise ValueError('ALOccImageInputAdapter expects InfraOcc inputs with BDA.')
         imgs, sensor2egos, ego2globals, cam2imgs, post_augs, bda_mat = raw_inputs
         expected_images = self.num_cams * (
             1 if self.strict_current_frame else 2)
@@ -353,7 +353,7 @@ class ALOccImageInputAdapter:
                 f'per camera, expected {self.num_cams} but got '
                 f'{results["gt_depth"].shape[0]}.')
 
-        # Keep the same coordinate convention as RoadOcc's
+        # Keep the same coordinate convention as InfraOcc's
         # BEVDetStereoForwardProjection: camera extrinsics are expressed in
         # the current key-frame ego coordinate.  For the current frame this is
         # usually identical to raw sensor2ego, but the explicit computation
@@ -368,7 +368,7 @@ class ALOccImageInputAdapter:
         trans = sensor2keyegos[:, :3, 3].contiguous()
         intrins = cam2imgs[:self.num_cams, :3, :3].contiguous()
         post_rots = post_augs[:self.num_cams, :3, :3].contiguous()
-        # RoadOcc/BEVDet stores image-space augmentation as a 3x3 homogeneous
+        # InfraOcc/BEVDet stores image-space augmentation as a 3x3 homogeneous
         # matrix embedded in the top-left of the 4x4 ``post_aug`` tensor.  The
         # 2D translation is therefore column 2, not the 4x4 transform column 3.
         post_trans = torch.zeros_like(post_augs[:self.num_cams, :3, 3])
@@ -393,7 +393,7 @@ class ALOccImageInputAdapter:
 class ALOccBEVAug:
     """The BDA wrapper used by the official ALOcc pipeline.
 
-    :class:`ALOccLoadOccupancy` applies the sampled transform to V2X-Real
+    :class:`ALOccLoadOccupancy` applies the sampled transform to InfraOcc
     targets after loading them in their physical ``[x, y, z]`` layout.
     """
 
@@ -439,7 +439,7 @@ class ALOccBEVAug:
         if len(img_inputs) != 5:
             raise ValueError('ALOccBEVAug must run before ALOccImageInputAdapter.')
         results['img_inputs'] = (*img_inputs, bda_mat)
-        # Match RoadOcc's BEVAug side channel.  Several shared helpers first
+        # Match InfraOcc's BEVAug side channel.  Several shared helpers first
         # look for ``results['bda_mat']`` and only then fall back to
         # ``img_inputs[-1]``; exposing it here keeps points/depth/diagnostics
         # on the exact same BEV augmentation contract.
@@ -453,7 +453,7 @@ class ALOccBEVAug:
 
 @PIPELINES.register_module()
 class ALOccLoadOccupancy:
-    """Load V2X-Real targets in the physical view-transformer coordinates."""
+    """Load InfraOcc targets in the physical view-transformer coordinates."""
 
     def __init__(self,
                  flow_gt_path,
@@ -497,14 +497,14 @@ class ALOccLoadOccupancy:
 
     @staticmethod
     def _to_alocc(occupancy):
-        # V2X-Real stores ``semantics[x, y, z]`` in the same physical BEV
+        # InfraOcc stores ``semantics[x, y, z]`` in the same physical BEV
         # convention as ALOcc's [X, Y, Z] view-transformer output. The
         # released ALOcc rotation/flip is specific to OpenOcc/FBOcc labels.
         return occupancy.clone().contiguous()
 
     @staticmethod
     def _flow_to_alocc(flow):
-        # Flow components are the V2X-Real physical (x, y) displacement.
+        # Flow components are the InfraOcc physical (x, y) displacement.
         return flow.clone().contiguous()
 
     @staticmethod
@@ -551,10 +551,10 @@ class ALOccLoadOccupancy:
                 occupancy_original_np, empty_idx_for_downsample)
             visible_mask_np = self._downsample_mask(visible_mask_np)
 
-        # Match RoadOcc's optional ego-frame reanchoring path.  The current
+        # Match InfraOcc's optional ego-frame reanchoring path.  The current
         # ALOcc config does not insert such a transform, so this is a no-op for
         # the normal bs=2 run, but it keeps the adapter correct when sharing
-        # RoadOcc robustness/data-augmentation pipelines.
+        # InfraOcc robustness/data-augmentation pipelines.
         valid = occupancy_np[occupancy_np != 255]
         empty_idx = int(valid.max()) if valid.size else 255
         valid_original = occupancy_original_np[occupancy_original_np != 255]
@@ -610,7 +610,7 @@ class ALOccLoadOccupancy:
                     flow_mask = occupancy < 8
                 else:
                     # OpenOcc's ``occupancy < 8`` convention is tied to its
-                    # label ordering. V2X-Real puts truck at index 10, so an
+                    # label ordering. InfraOcc puts truck at index 10, so an
                     # explicit shared dynamic set is required to supervise
                     # every evaluated moving class and no static zero flow.
                     flow_mask = torch.zeros_like(occupancy, dtype=torch.bool)
@@ -633,7 +633,7 @@ class ALOccLoadOccupancy:
                     fill=float('inf')).permute(2, 3, 1, 0)
 
         if results['flip_dx']:
-            # V2X-Real labels are [x, y, z], matching the BDA matrix's
+            # InfraOcc labels are [x, y, z], matching the BDA matrix's
             # physical x axis. The upstream ALOcc loader used [y, x, z]
             # labels and therefore flipped the opposite dimension.
             occupancy = torch.flip(occupancy, [0])
@@ -672,7 +672,7 @@ class ALOccFormatBundle3D(DefaultFormatBundle3D):
 
 @PIPELINES.register_module()
 class CRTFusionImageInputAdapter:
-    """Expose the current RoadOcc camera frame through CRT-Fusion's contract."""
+    """Expose the current InfraOcc camera frame through CRT-Fusion's contract."""
 
     def __init__(self, num_cams, strict_current_frame=False):
         self.num_cams = int(num_cams)
@@ -681,7 +681,7 @@ class CRTFusionImageInputAdapter:
     def __call__(self, results):
         raw_inputs = results['img_inputs']
         if len(raw_inputs) != 6:
-            raise ValueError('CRTFusionImageInputAdapter expects RoadOcc BDA inputs.')
+            raise ValueError('CRTFusionImageInputAdapter expects InfraOcc BDA inputs.')
         imgs, sensor2egos, ego2globals, cam2imgs, post_augs, bda_mat = raw_inputs
         if imgs.shape[0] % self.num_cams != 0:
             raise ValueError(
@@ -741,7 +741,7 @@ class CRTFusionImageInputAdapter:
 
 @PIPELINES.register_module()
 class CRTFusionFormatBundle3D(DefaultFormatBundle3D):
-    """Format dense RoadOcc supervision required by the adapted task head."""
+    """Format dense InfraOcc supervision required by the adapted task head."""
 
     def __call__(self, results):
         results = super().__call__(results)

@@ -2,8 +2,8 @@
 """Crop OCC gts labels from 320x320x32 to a lower z range.
 
 Default conversion:
-  input : ./data/v2xreal_nuscenes/gts
-  output: ./data/v2xreal_nuscenes/gts_16
+  input : ./data/infraocc/gts
+  output: ./data/infraocc/gts_16
 
 The default source range is [-64, -64, -4.8, 64, 64, 8.0].
 The default target range is [-64, -64, -4.8, 64, 64, 1.6],
@@ -96,7 +96,7 @@ def main():
     parser = argparse.ArgumentParser(
         description="Crop OCC gts labels.npz from a source pc range to a smaller target pc range."
     )
-    parser.add_argument("--input-root", default="./data/v2xreal_nuscenes",
+    parser.add_argument("--input-root", default="./data/infraocc",
                         help="Dataset root that contains the source gts directory.")
     parser.add_argument("--src-gts-name", default="gts",
                         help="Source gts directory name under input-root.")

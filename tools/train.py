@@ -48,7 +48,7 @@ except ImportError:
 
 def parse_args():
     parser = argparse.ArgumentParser(description='Train a detector')
-    parser.add_argument('--config', type=str, default="projects/RoadOcc/configs/roadocc_c_4x4_24e_mf3.py", help='train config file path')
+    parser.add_argument('--config', type=str, default="projects/ProSDOcc/configs/infraocc_c_4x4_36e_prosd.py", help='train config file path')
     parser.add_argument('--work-dir', help='the dir to save logs and models')
     parser.add_argument(
         '--resume-from', help='the checkpoint file to resume from')
@@ -147,7 +147,7 @@ def _maybe_adjust_dist_backend(args, cfg):
     if 'dist_params' not in cfg:
         cfg.dist_params = dict(backend='nccl')
 
-    backend_override = os.environ.get('OCC_V2X_DIST_BACKEND', '').strip().lower()
+    backend_override = os.environ.get('INFRAOCC_DIST_BACKEND', '').strip().lower()
     want_gloo = cfg.get('use_gloo_dist', False) or backend_override == 'gloo'
     force_nccl = cfg.get('force_nccl_dist', False) or backend_override == 'nccl'
     if (not want_gloo and not force_nccl
@@ -159,7 +159,7 @@ def _maybe_adjust_dist_backend(args, cfg):
                 'Auto-switching distributed backend to GLOO on compute '
                 f'capability {major}.{minor} GPUs because NCCL reproduces '
                 'illegal memory access on this stack. Set '
-                'OCC_V2X_DIST_BACKEND=nccl or force_nccl_dist=True to force '
+                'INFRAOCC_DIST_BACKEND=nccl or force_nccl_dist=True to force '
                 'NCCL.',
                 UserWarning)
             return
@@ -168,7 +168,7 @@ def _maybe_adjust_dist_backend(args, cfg):
         cfg.dist_params['backend'] = 'gloo'
         warnings.warn(
             'Distributed backend is GLOO (config use_gloo_dist=True or '
-            'OCC_V2X_DIST_BACKEND=gloo). Slower than NCCL but stable on stacks '
+            'INFRAOCC_DIST_BACKEND=gloo). Slower than NCCL but stable on stacks '
             'where NCCL fails; otherwise set use_gloo_dist=False, unset the env, '
             'and use dist_params backend nccl.',
             UserWarning)
@@ -198,7 +198,7 @@ def main():
     else:
         cfg.work_dir = osp.join('./work_dirs',
                                 osp.splitext(osp.basename(args.config))[0])
-    if os.getenv('STCROADOCC_PROFILE_TRAIN') == '1':
+    if os.getenv('INFRAOCC_PROFILE_TRAIN') == '1':
         # Opt-in profiling only. This is intentionally not stored in the
         # experiment config and has no effect on an ordinary training launch.
         cfg.custom_hooks = list(cfg.get('custom_hooks', []))

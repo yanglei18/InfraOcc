@@ -290,7 +290,7 @@ class NuScenesDatasetOccupancy(NuScenesDataset):
                     ]
                     input_dict.update(dict(adjacent=info_adj_list))
 
-        # RoadOcc uses the same adjacent-frame selection for camera and lidar.
+        # InfraOcc uses the same adjacent-frame selection for camera and lidar.
         # Lidar-only mode still needs adjacent sample infos even though it does
         # not consume image metadata.
         if 'adjacent' not in input_dict and self.multi_adj_frame_id_cfg is not None:

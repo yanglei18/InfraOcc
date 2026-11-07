@@ -39,9 +39,9 @@ class Compose:
         # A process-local, opt-in timing probe for DataLoader workers. It is
         # deliberately controlled by an environment flag rather than config,
         # so ordinary data loading has no extra work or altered ordering.
-        self._profile_pipeline = os.getenv('STCROADOCC_PIPELINE_PROFILE') == '1'
+        self._profile_pipeline = os.getenv('INFRAOCC_PIPELINE_PROFILE') == '1'
         self._profile_limit = int(
-            os.getenv('STCROADOCC_PIPELINE_PROFILE_SAMPLES', '8'))
+            os.getenv('INFRAOCC_PIPELINE_PROFILE_SAMPLES', '8'))
         self._profile_count = 0
         self._profile_totals = collections.defaultdict(float)
 

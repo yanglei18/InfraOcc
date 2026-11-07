@@ -227,14 +227,14 @@ def add_ann_adj_info(extra_tag,
             pickle.dump(dataset, fid)
 
 def parse_args():
-    parser = argparse.ArgumentParser(description='Create BEVDet/STCOcc data infos')
+    parser = argparse.ArgumentParser(description='Create InfraOcc data infos')
     parser.add_argument(
         '--root-path',
-        default='./data/v2xreal_nuscenes',
+        default='./data/infraocc',
         help='dataset root path')
     parser.add_argument(
         '--extra-tag',
-        default='v2xreal',
+        default='infraocc',
         help='prefix used in generated info filenames')
     parser.add_argument(
         '--version',

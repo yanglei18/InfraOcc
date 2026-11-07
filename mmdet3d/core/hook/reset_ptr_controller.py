@@ -1,5 +1,5 @@
 # Copyright (c) OpenMMLab. All rights reserved.
-"""Checkpoint adaptation hooks for RoadOcc."""
+"""Checkpoint adaptation hooks for InfraOcc."""
 
 import torch
 import torch.distributed as dist
@@ -25,7 +25,7 @@ class ResetCanonicalPTRControllerHook(Hook):
     training state and must not be reset again.  A continuation that uses
     ``load_from`` can likewise opt out explicitly with
     ``reset_loaded_controller=False``.  This distinction is important: a
-    legacy occupancy checkpoint needs a neutral route head, whereas a RoadOcc
+    legacy occupancy checkpoint needs a neutral route head, whereas an InfraOcc
     checkpoint already contains the learned P/T/R controller.
     """
 

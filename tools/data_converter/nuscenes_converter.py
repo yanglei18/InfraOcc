@@ -15,7 +15,7 @@ from shapely.geometry import MultiPoint, box
 
 from mmdet3d.core.bbox import points_cam2img
 from mmdet3d.datasets import NuScenesDataset
-from projects.RoadOcc.preprocess.occflow_utils import (
+from tools.data_converter.occflow_utils import (
     DEFAULT_CLASS_NAMES,
     DEFAULT_DYNAMIC_CLASS_NAMES,
     DEFAULT_EMPTY_IDX,
@@ -65,8 +65,8 @@ def _infer_sample_timestamp_to_sec(nusc: NuScenes,
                                    fallback: float = 1e-6) -> float:
     """Infer the timestamp unit used by the dataset.
 
-    nuScenes stores sample timestamps in microseconds, but the V2XReal-exported
-    metadata in this repo uses a coarser unit. For V2X-Real, the official paper
+    nuScenes stores sample timestamps in microseconds, but the InfraOcc-exported
+    metadata in this repo uses a coarser unit. For InfraOcc, the official paper
     and project page describe the raw LiDAR streams as 10 Hz, but the released
     nuScenes-style ``sample`` timeline is effectively 2 Hz: consecutive
     ``sample.timestamp`` values differ by 5000 and should map to 0.5 seconds,
@@ -88,7 +88,7 @@ def _infer_sample_timestamp_to_sec(nusc: NuScenes,
         return float(fallback)
     median_delta = float(np.median(np.asarray(deltas, dtype=np.float64)))
     candidate_scales = np.asarray([1e-6, 1e-5, 1e-4], dtype=np.float64)
-    # V2X-Real raw sensors run at 10 Hz, but the released synchronized sample
+    # InfraOcc raw sensors run at 10 Hz, but the released synchronized sample
     # sequence is subsampled to 2 Hz. We therefore prefer the timestamp scale
     # whose median sample interval is closest to 0.5 seconds.
     target_keyframe_dt = 0.5
@@ -125,7 +125,7 @@ def _box_velocity_with_timestamp_scale(
         occ_score_margin: float = 0.10) -> np.ndarray:
     """Estimate annotation velocity with configurable timestamp scale.
 
-    The V2XReal-exported metadata occasionally contains broken prev/next links.
+    The InfraOcc-exported metadata occasionally contains broken prev/next links.
     We therefore prefer one-sided velocities when the two neighbors disagree
     strongly, instead of always using the centered difference from official
     nuScenes.

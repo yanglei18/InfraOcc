@@ -75,24 +75,11 @@ work_dirs/*
 *.pth
 
 # Dataset / generated metadata (local only)
+/data/
 *.pkl
 *.png
 
 mmdet3d/.mim/tools
 mmcv_src/
 build/
-
-# Local large-artifact links
-work_dirs/
 projects/
-data/
-docs/assets/paper/
-docs/guidance
-docs/paper
-
-tools/audits/
-tools/efficiency/
-tools/evaluation/
-tools/infraocc/
-tools/occflow_tools/
-tools/visualizer/
